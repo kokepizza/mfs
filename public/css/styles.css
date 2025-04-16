@@ -1,0 +1,28 @@
+/* is:global */
+
+:root {
+    color-scheme: dark;
+    --black: #1D1D1B;
+    --white: #F5F5F5;
+}
+
+@font-face {
+    font-family: 'Jokker';
+    src: url('/fonts/JokkerTRIALVF.woff2') format('woff2'),
+            url('/fonts/JokkerTRIALVF.woff') format('woff');
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+html {
+    font-family: 'Jokker', sans-serif;
+    font-weight: 336;
+    line-height: 1.2;
+    color: var(--white);
+    background-color: var(--black)
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Jokker', sans-serif;
+    font-weight: 470;
+}
