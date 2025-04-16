@@ -83,10 +83,6 @@ header {
     display: flex;
     flex-direction: column;
     gap: .5rem;
-
-    a:hover {
-        text-decoration: underline;
-    }
 }
 
 a.current-page {
@@ -104,8 +100,10 @@ a.current-page {
     display: flex;
     flex-direction: column;
     gap:.5rem;
+}
 
-    a:hover {
-        text-decoration: underline;
-    }
+.view-style a:hover,
+.nav a:hover,
+.social a:hover {
+    text-decoration: underline;
 }
