@@ -1,9 +1,36 @@
+/* reset */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    all: unset;
+    display: inline-block;
+    cursor: pointer;
+}
+
 /* is:global */
 
 :root {
     color-scheme: dark;
     --black: #1D1D1B;
     --white: #F5F5F5;
+    --padding: 1.5rem;
 }
 
 @font-face {
@@ -25,4 +52,60 @@ html {
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Jokker', sans-serif;
     font-weight: 470;
+}
+
+/* header */
+
+header {
+    position: fixed;
+    padding: var(--padding);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.title-name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(1.5rem, 6vw, 3rem);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    filter: blur(.25rem);
+    z-index: 100;
+    pointer-events: none;
+}
+
+.view-style, .nav {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+
+    a:hover {
+        text-decoration: underline;
+    }
+}
+
+a.current-page {
+    text-decoration: underline;
+}
+
+.nav {
+    text-align: right;
+}
+
+.social {
+    position: absolute;
+    bottom: var(--padding);
+    left: var(--padding);
+    display: flex;
+    flex-direction: column;
+    gap:.5rem;
+
+    a:hover {
+        text-decoration: underline;
+    }
 }

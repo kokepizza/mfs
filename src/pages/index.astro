@@ -1,5 +1,5 @@
 ---
-
+const currentPath = Astro.url.pathname;
 ---
 
 <!DOCTYPE html>
@@ -14,7 +14,7 @@
     <!-- SEO -->
     <title>Marc Flaquer</title>
     <meta name="description" content="Descripción breve de la página web para mejorar SEO.">
-    <meta name="author" content="Tu Nombre o Empresa">
+    <meta name="author" content="kokepizza">
     <meta name="keywords" content="palabra clave 1, palabra clave 2, palabra clave 3">
 
     <!-- Favicon -->
@@ -26,11 +26,28 @@
 
     <!-- JS y librerías externas -->
     <script src="/js/script.js" defer></script>
-
 </head>
 
 <body>
-
+    <header>
+        <div class="title-name">
+            <a href="/">
+                <h1>Marc Flaquer</h1>
+            </a>
+        </div>
+        <div class="view-style">
+            <a href="/" class={currentPath === '/' ? 'current-page' : ''}>Feed</a>
+            <a href="/work-list" class={currentPath === '/work-list' ? 'current-page' : ''}>List</a>
+        </div>
+        <div class="nav">
+            <a href="/about" class={currentPath === '/about' ? 'current-page' : ''}>About</a>
+            <a href="/contact" class={currentPath === '/contact' ? 'current-page' : ''}>Contact</a>
+        </div>
+        <div class="social">
+            <a href="https://www.instagram.com/marcflaquer.visuals/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://www.behance.net/marcflaquer" target="_blank" rel="noopener noreferrer">Behance</a>
+        </div>
+    </header>
 </body>
 
 </html>
