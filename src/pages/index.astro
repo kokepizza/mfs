@@ -1,5 +1,6 @@
 ---
 const currentPath = Astro.url.pathname;
+import { gsap } from "gsap";
 ---
 
 <!DOCTYPE html>
@@ -25,6 +26,7 @@ const currentPath = Astro.url.pathname;
     <link rel="stylesheet" href="/css/styles.css">
 
     <!-- JS y librerías externas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="/js/script.js" defer></script>
 </head>
 
@@ -48,6 +50,170 @@ const currentPath = Astro.url.pathname;
             <a href="https://www.behance.net/marcflaquer" target="_blank" rel="noopener noreferrer">Behance</a>
         </div>
     </header>
+    <main>
+        <section class="feed">
+            <article class="feed-grid" data-slide>
+                <a href="#" data-preview="1">
+                    <div class="feed-project">
+                        <figure class="feed-project-fig">
+                            <img src="/images/4.jpg" alt="">
+                        </figure>
+                        <h2 class="feed-project-title">Títol projecte</h2>
+                    </div>
+                </a>
+            </article>
+            <article class="feed-grid" data-slide>
+                <a href="#" data-preview="2">
+                    <div class="feed-project">
+                        <figure class="feed-project-fig">
+                            <img src="/images/2.jpg" alt="">
+                        </figure>
+                        <h2 class="feed-project-title">Títol projecte</h2>
+                    </div>
+                </a>
+            </article>
+            <article class="feed-grid" data-slide>
+                <a href="#" data-preview="3">
+                    <div class="feed-project">
+                        <figure class="feed-project-fig">
+                            <img src="/images/3.jpg" alt="">
+                        </figure>
+                        <h2 class="feed-project-title">Títol projecte</h2>
+                    </div>
+                </a>
+            </article>
+            <article class="feed-grid" data-slide>
+                <a href="#" data-preview="4">
+                    <div class="feed-project">
+                        <figure class="feed-project-fig">
+                            <img src="/images/1.jpg" alt="">
+                        </figure>
+                        <h2 class="feed-project-title">Títol projecte</h2>
+                    </div>
+                </a>
+            </article>
+            <article class="feed-grid" data-slide>
+                <a href="#" data-preview="5">
+                    <div class="feed-project">
+                        <figure class="feed-project-fig">
+                            <img src="/images/5.jpg" alt="">
+                        </figure>
+                        <h2 class="feed-project-title">Títol projecte</h2>
+                    </div>
+                </a>
+            </article>
+            <article class="feed-grid" data-slide>
+                <a href="#" data-preview="6">
+                    <div class="feed-project">
+                        <figure class="feed-project-fig">
+                            <img src="/images/6.jpg" alt="">
+                        </figure>
+                        <h2 class="feed-project-title">Títol projecte</h2>
+                    </div>
+                </a>
+            </article>
+            <article class="feed-grid" data-slide>
+                <a href="#" data-preview="7">
+                    <div class="feed-project">
+                        <figure class="feed-project-fig">
+                            <img src="/images/7.jpg" alt="">
+                        </figure>
+                        <h2 class="feed-project-title">Títol projecte</h2>
+                    </div>
+                </a>
+            </article>
+            <article class="feed-grid" data-slide>
+                <a href="#" data-preview="8">
+                    <div class="feed-project">
+                        <figure class="feed-project-fig">
+                            <img src="/images/8.jpg" alt="">
+                        </figure>
+                        <h2 class="feed-project-title">Títol projecte</h2>
+                    </div>
+                </a>
+            </article>
+            <article class="feed-grid" data-slide>
+                <a href="#" data-preview="9">
+                    <div class="feed-project">
+                        <figure class="feed-project-fig">
+                            <img src="/images/4.jpg" alt="">
+                        </figure>
+                        <h2 class="feed-project-title">Títol projecte</h2>
+                    </div>
+                </a>
+            </article>
+            <article class="feed-grid" data-slide>
+                <a href="#" data-preview="10">
+                    <div class="feed-project">
+                        <figure class="feed-project-fig">
+                            <img src="/images/2.jpg" alt="">
+                        </figure>
+                        <h2 class="feed-project-title">Títol projecte</h2>
+                    </div>
+                </a>
+            </article>
+            <article class="feed-grid" data-slide>
+                <a href="#" data-preview="11">
+                    <div class="feed-project">
+                        <figure class="feed-project-fig">
+                            <img src="/images/3.jpg" alt="">
+                        </figure>
+                        <h2 class="feed-project-title">Títol projecte</h2>
+                    </div>
+                </a>
+            </article>
+            <article class="feed-grid" data-slide>
+                <a href="#" data-preview="12">
+                    <div class="feed-project">
+                        <figure class="feed-project-fig">
+                            <img src="/images/1.jpg" alt="">
+                        </figure>
+                        <h2 class="feed-project-title">Títol projecte</h2>
+                    </div>
+                </a>
+            </article>
+            <article class="feed-grid" data-slide>
+                <a href="#" data-preview="1">
+                    <div class="feed-project">
+                        <figure class="feed-project-fig">
+                            <img src="/images/4.jpg" alt="">
+                        </figure>
+                        <h2 class="feed-project-title">Títol projecte</h2>
+                    </div>
+                </a>
+            </article>
+            <article class="feed-grid" data-slide>
+                <a href="#" data-preview="2">
+                    <div class="feed-project">
+                        <figure class="feed-project-fig">
+                            <img src="/images/2.jpg" alt="">
+                        </figure>
+                        <h2 class="feed-project-title">Títol projecte</h2>
+                    </div>
+                </a>
+            </article>
+            <article class="feed-grid" data-slide>
+                <a href="#" data-preview="3">
+                    <div class="feed-project">
+                        <figure class="feed-project-fig">
+                            <img src="/images/3.jpg" alt="">
+                        </figure>
+                        <h2 class="feed-project-title">Títol projecte</h2>
+                    </div>
+                </a>
+            </article>
+            <article class="feed-grid" data-slide>
+                <a href="#" data-preview="4">
+                    <div class="feed-project">
+                        <figure class="feed-project-fig">
+                            <img src="/images/1.jpg" alt="">
+                        </figure>
+                        <h2 class="feed-project-title">Títol projecte</h2>
+                    </div>
+                </a>
+            </article>
+        </section>
+    </main>
 </body>
 
 </html>
