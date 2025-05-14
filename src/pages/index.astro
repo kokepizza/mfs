@@ -1,27 +1,8 @@
 ---
 import '../assets/styles.css';
+import { projects } from '../assets/projects.js';
 import { Image } from 'astro:assets';
-import img1 from '../assets/1.jpg';
-import img2 from '../assets/2.jpg';
-import img3 from '../assets/3.jpg';
-import img4 from '../assets/4.jpg';
-import img5 from '../assets/5.jpg';
-import img6 from '../assets/6.jpg';
-import img7 from '../assets/7.jpg';
-import img8 from '../assets/8.jpg';
 const currentPath = Astro.url.pathname;
-
-// Array de proyectos con imagen y alt
-const projects = [
-  { img: img1, name: "Proyecto 1" },
-  { img: img2, name: "Proyecto 2" },
-  { img: img3, name: "Proyecto 3" },
-  { img: img4, name: "Proyecto 4" },
-  { img: img5, name: "Proyecto 5" },
-  { img: img6, name: "Proyecto 6" },
-  { img: img7, name: "Proyecto 7" },
-  { img: img8, name: "Proyecto 8" },
-];
 ---
 
 <!DOCTYPE html>
@@ -37,7 +18,7 @@ const projects = [
     <title>Marc Flaquer</title>
     <meta name="description" content="Descripción breve de la página web para mejorar SEO.">
     <meta name="author" content="kokepizza">
-    <meta name="keywords" content="palabra clave 1, palabra clave 2, palabra clave 3">
+    <meta name="keywords" content="palabra, palabra, palabra">
 
     <!-- Favicon -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -67,10 +48,10 @@ const projects = [
         <section class="feed">
             {projects.map((project, i) => (
               <article class="feed-grid" data-slide>
-                <a href="#" data-preview={i + 1}>
+                <a href={project.url} data-preview={i + 1}>
                   <div class="feed-project">
                     <figure class="feed-project-fig">
-                      <Image src={project.img} alt={project.name} title={project.name} />
+                      <Image src={project.images[0]} alt={project.name} title={project.name} />
                     </figure>
                     <h2 class="feed-project-title">{project.name}</h2>
                   </div>

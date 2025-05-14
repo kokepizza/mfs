@@ -84,7 +84,8 @@ header {
     transition: filter .3s ease;
 }
 
-.view-style, .nav {
+.view-style,
+.nav {
     display: flex;
     flex-direction: column;
     gap: .5rem;
