@@ -82,7 +82,6 @@ header {
     z-index: 100;
     pointer-events: none;
     transition: filter .3s ease;
-    overflow: visible;
 }
 
 .view-style,
