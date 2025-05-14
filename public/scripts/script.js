@@ -6,11 +6,9 @@ function handleBlur() {
     const MARC = document.querySelector(".title-name");
     if(MARC) {
         MARC.style.filter = "blur(0px)";
-        MARC.style.overflow = "hidden";
         clearTimeout(blurTimeout);
         blurTimeout = setTimeout(() => {
             MARC.style.filter = "";
-            MARC.style.overflow = "visible";
         }, 300);
     }
 }
