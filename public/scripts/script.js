@@ -1,9 +1,5 @@
 console.log("pàgina carregada");
 
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
-
 // ANIMACIÓ BLUR TITOL
 let blurTimeout;
 function handleBlur() {
