@@ -9,7 +9,7 @@ function handleBlur() {
         clearTimeout(blurTimeout);
         blurTimeout = setTimeout(() => {
             MARC.style.filter = "";
-        }, 100);
+        }, 300);
     }
 }
 window.addEventListener("wheel", handleBlur);
