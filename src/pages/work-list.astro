@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/layout.astro";
+---
+
+<Layout>
+    
+
+    <style is:inline>
+        .title-name {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(.8rem, 4vw, 1.8rem);
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            filter: blur(.25rem);
+            z-index: 100;
+            pointer-events: auto;
+            transition: filter .7s ease;
+            padding: var(--padding);
+        }
+    </style>
+</Layout>
