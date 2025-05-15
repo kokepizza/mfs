@@ -26,11 +26,6 @@ const currentPath = Astro.url.pathname;
 
 <body>
     <header>
-        <div class="title-name">
-            <a href="/">
-                <h1>Marc Flaquer</h1>
-            </a>
-        </div>
         <div class="view-style">
             <a href="/" class={currentPath === '/' ? 'current-page' : ''}>Feed</a>
             <a href="/work-list" class={currentPath === '/work-list' ? 'current-page' : ''}>List</a>
@@ -39,12 +34,17 @@ const currentPath = Astro.url.pathname;
             <a href="/about" class={currentPath === '/about' ? 'current-page' : ''}>About</a>
             <a href="/contact" class={currentPath === '/contact' ? 'current-page' : ''}>Contact</a>
         </div>
+    </header>
+    <main>
+        <div class="title-name">
+            <a href="/">
+                <h1>Marc Flaquer</h1>
+            </a>
+        </div>
         <div class="social">
             <a href="https://www.instagram.com/marcflaquer.visuals/" target="_blank" rel="noopener noreferrer">Instagram</a>
             <a href="https://www.behance.net/marcflaquer" target="_blank" rel="noopener noreferrer">Behance</a>
         </div>
-    </header>
-    <main>
         <section class="feed">
             {projects.map((project, i) => (
               <article class="feed-grid" data-slide>
@@ -61,7 +61,9 @@ const currentPath = Astro.url.pathname;
         </section>
     </main>
     
-    <script type="module" src="/scripts/script.js"></script>
+    <script src="/scripts/gsap.min.js" is:inline></script>
+    <script src="/scripts/ScrollTrigger.min.js" is:inline></script>
+    <script src="/scripts/script.js" is:inline></script>
 </body>
 
 </html>
