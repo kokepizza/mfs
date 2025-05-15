@@ -1,69 +1,28 @@
 ---
-import '../assets/styles.css';
+import Layout from '../layouts/Layout.astro';
 import { projects } from '../assets/projects.js';
 import { Image } from 'astro:assets';
-const currentPath = Astro.url.pathname;
 ---
 
-<!DOCTYPE html>
-<html lang="en">
+<Layout>
 
-<head>
-    <!-- Metadatos básicos -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <!-- SEO -->
-    <title>Marc Flaquer</title>
-    <meta name="description" content="Descripción breve de la página web para mejorar SEO.">
-    <meta name="author" content="kokepizza">
-    <meta name="keywords" content="palabra, palabra, palabra">
-
-    <!-- Favicon -->
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-</head>
-
-<body>
-    <header>
-        <div class="view-style">
-            <a href="/" class={currentPath === '/' ? 'current-page' : ''}>Feed</a>
-            <a href="/work-list" class={currentPath === '/work-list' ? 'current-page' : ''}>List</a>
-        </div>
-        <div class="nav">
-            <a href="/about" class={currentPath === '/about' ? 'current-page' : ''}>About</a>
-            <a href="/contact" class={currentPath === '/contact' ? 'current-page' : ''}>Contact</a>
-        </div>
-    </header>
-    <main>
-        <div class="title-name">
-            <a href="/">
-                <h1>Marc Flaquer</h1>
+    <div class="social">
+        <a href="https://www.instagram.com/marcflaquer.visuals/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.behance.net/marcflaquer" target="_blank" rel="noopener noreferrer">Behance</a>
+    </div>
+    <section class="feed">
+        {projects.map((project, i) => (
+            <article class="feed-grid" data-slide>
+            <a href={project.url} data-preview={i + 1}>
+                <div class="feed-project">
+                <figure class="feed-project-fig">
+                    <Image src={project.images[0]} alt={project.name} title={project.name} />
+                </figure>
+                <h2 class="feed-project-title">{project.name}</h2>
+                </div>
             </a>
-        </div>
-        <div class="social">
-            <a href="https://www.instagram.com/marcflaquer.visuals/" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href="https://www.behance.net/marcflaquer" target="_blank" rel="noopener noreferrer">Behance</a>
-        </div>
-        <section class="feed">
-            {projects.map((project, i) => (
-              <article class="feed-grid" data-slide>
-                <a href={project.url} data-preview={i + 1}>
-                  <div class="feed-project">
-                    <figure class="feed-project-fig">
-                      <Image src={project.images[0]} alt={project.name} title={project.name} />
-                    </figure>
-                    <h2 class="feed-project-title">{project.name}</h2>
-                  </div>
-                </a>
-              </article>
-            ))}
-        </section>
-    </main>
+            </article>
+        ))}
+    </section>
     
-    <script src="/scripts/gsap.min.js" is:inline></script>
-    <script src="/scripts/ScrollTrigger.min.js" is:inline></script>
-    <script src="/scripts/script.js" is:inline></script>
-</body>
-
-</html>
+</Layout>
