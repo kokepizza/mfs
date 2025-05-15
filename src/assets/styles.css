@@ -125,6 +125,13 @@ a.current-page {
     width: 100%;
     overflow-y: auto;
     z-index: 50;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-snap-type: y mandatory;
+}
+
+.feed::-webkit-scrollbar {
+    display: none;
 }
 
 .feed-grid {
