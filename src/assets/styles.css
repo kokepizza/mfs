@@ -39,11 +39,20 @@ button {
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Roboto Mono';
+    src: url('/fonts/RobotoMono-VariableFont_wght.woff2') format('woff2'),
+         url('/fonts/RobotoMono-VariableFont_wght.woff') format('woff');
+    font-weight: 100 700;
+    font-style: normal;
+}
+
 html {
     font-family: 'Jokker', sans-serif;
     font-size: 14px;
     font-weight: 336;
     line-height: 1.2;
+    letter-spacing: 0.04em;
     color: var(--white);
     background-color: var(--black)
 }
