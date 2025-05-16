@@ -13,14 +13,14 @@ import { Image } from 'astro:assets';
     <section class="feed">
         {projects.map((project, i) => (
             <article class="feed-grid" data-slide>
-            <a href={project.url} data-preview={i + 1}>
-                <div class="feed-project">
-                <figure class="feed-project-fig">
-                    <Image src={project.images[0]} alt={project.name} title={project.name} />
-                </figure>
-                <h2 class="feed-project-title">{project.name}</h2>
-                </div>
-            </a>
+                <a href={project.url} data-preview={i + 1}>
+                    <div class="feed-project">
+                    <figure class="feed-project-fig">
+                        <Image src={project.images[0]} alt={project.name} title={project.name} />
+                    </figure>
+                    <h2 class="feed-project-title">{project.name}</h2>
+                    </div>
+                </a>
             </article>
         ))}
     </section>
@@ -217,20 +217,19 @@ import { Image } from 'astro:assets';
             if (!feed) return;
 
             const projects = Array.from(feed.children);
-            const totalProjects = NUM_PROJECTS;
 
             // duplica el contigut al principi en ordre invers i al final normal
-            projects.slice(0, totalProjects).reverse().forEach(project => {
+            projects.slice(0, NUM_PROJECTS).reverse().forEach(project => {
                 const cloneStart = project.cloneNode(true);
                 feed.insertBefore(cloneStart, feed.firstChild);
             });
-            projects.slice(0, totalProjects).forEach(project => {
+            projects.slice(0, NUM_PROJECTS).forEach(project => {
                 const cloneEnd = project.cloneNode(true);
                 feed.appendChild(cloneEnd);
             });
 
             // calcula l'alçada de tots els projectes originals i ajustar l'scroll per que comenci al segon bloc de projectes originals
-            const originalProjects = Array.from(feed.children).slice(totalProjects, totalProjects * 2);
+            const originalProjects = Array.from(feed.children).slice(NUM_PROJECTS, NUM_PROJECTS * 2);
             const blockHeight = originalProjects.reduce((acc, el) => acc + el.offsetHeight, 0);
 
             feed.scrollTop = blockHeight;
