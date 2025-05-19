@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <header>
       <div className="view-style">
-        <a href="/" className={currentPath === '' ? 'current-page' : ''}>Feed</a>
+        <a href="/" className={currentPath === '/' ? 'current-page' : ''}>Feed</a>
         <a href="/work-list" className={currentPath === '/work-list' ? 'current-page' : ''}>List</a>
       </div>
       <div className="nav">

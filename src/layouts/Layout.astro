@@ -1,6 +1,6 @@
 ---
 import '../assets/styles.css';
-const currentPath = Astro.url.pathname;
+import Header from '../components/Header.jsx';
 import { ClientRouter } from 'astro:transitions';
 ---
 
@@ -26,16 +26,7 @@ import { ClientRouter } from 'astro:transitions';
 </head>
 
 <body>
-    <header>
-        <div class="view-style">
-            <a href="/" class={currentPath === '/' ? 'current-page' : ''}>Feed</a>
-            <a href="/work-list" class={currentPath === '/work-list' ? 'current-page' : ''}>List</a>
-        </div>
-        <div class="nav">
-            <a href="/about" class={currentPath === '/about' ? 'current-page' : ''}>About</a>
-            <a href="/contact" class={currentPath === '/contact' ? 'current-page' : ''}>Contact</a>
-        </div>
-    </header>
+    <Header client:visible/>
     <main>
         <div class="title-name" transition:name="title-name">
             <a href="/">
