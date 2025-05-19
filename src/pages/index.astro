@@ -1,5 +1,5 @@
 ---
-import Feed from '../components/Feed.astro';
+import Feed from '../components/Feed.jsx';
 import Layout from '../layouts/Layout.astro';
 ---
 
@@ -9,7 +9,7 @@ import Layout from '../layouts/Layout.astro';
         <a href="https://www.instagram.com/marcflaquer.visuals/" target="_blank" rel="noopener noreferrer">Instagram</a>
         <a href="https://www.behance.net/marcflaquer" target="_blank" rel="noopener noreferrer">Behance</a>
     </div>
-    <Feed />
+    <Feed client:load/>
 
     <style is:inline>
 
@@ -33,5 +33,29 @@ import Layout from '../layouts/Layout.astro';
         }
 
     </style>
+    <script is:inline>
+        document.addEventListener("DOMContentLoaded", function() {
+            blurTitle();
+        });
+
+        // Blur del títol
+        function blurTitle() {
+            let blurTimeout;
+            function handleBlur() {
+                const MARC = document.querySelector(".title-name");
+                if(MARC) {
+                    MARC.style.filter = "blur(0px)";
+                    clearTimeout(blurTimeout);
+                    blurTimeout = setTimeout(() => {
+                        MARC.style.filter = "";
+                    }, 300);
+                }
+            }
+
+            window.addEventListener("wheel", handleBlur);
+            window.addEventListener("scroll", handleBlur);
+            window.addEventListener("touchmove", handleBlur);
+        }
+    </script>
 
 </Layout>

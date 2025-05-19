@@ -1,8 +1,7 @@
 ---
 import '../assets/styles.css';
-import preloader from '../scripts/preloader.js';
-import feed from '../scripts/feed.js';
 const currentPath = Astro.url.pathname;
+import { ClientRouter } from 'astro:transitions';
 ---
 
 <!DOCTYPE html>
@@ -23,10 +22,11 @@ const currentPath = Astro.url.pathname;
     <!-- Favicon -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
+    <ClientRouter />
 </head>
 
 <body>
-    {currentPath === '/' ? (
+    <!-- {currentPath === '/' ? (
         <div class="preloader preloader-a">
         <h1 id="preloader-title">Marc Flaquer</h1>
         </div>
@@ -34,7 +34,7 @@ const currentPath = Astro.url.pathname;
         <div class="preloader preloader-b">
         <h1 id="preloader-title">Marc Flaquer</h1>
         </div>
-    )}
+    )} -->
     <header>
         <div class="view-style">
             <a href="/" class={currentPath === '/' ? 'current-page' : ''}>Feed</a>
@@ -55,8 +55,6 @@ const currentPath = Astro.url.pathname;
         <slot />
     </main>
 
-    <script type="module" src="/src/scripts/preloader.js"></script>
-    <script type="module" src="/src/scripts/feed.js"></script>
 </body>
 
 </html>
