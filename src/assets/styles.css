@@ -81,7 +81,7 @@ header {
     pointer-events: auto;
 }
 
-a.current-page {
+.current-page {
     text-decoration: underline;
 }
 
