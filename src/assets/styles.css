@@ -106,3 +106,22 @@ a.current-page {
     text-decoration: underline;
 }
 
+.preloader {
+  position: fixed;
+  inset: 0;
+  background: var(--black);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.preloader-title {
+  font-family: 'Jokker', sans-serif;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: var(--padding);
+  transition: filter 0.7s ease;
+  color: var(--white);
+}
