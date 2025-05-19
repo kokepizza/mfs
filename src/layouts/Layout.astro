@@ -23,7 +23,7 @@ const currentPath = Astro.url.pathname;
 
 </head>
 
-<body>
+<body style="view-transition-name: page;">
     <header>
         <div class="view-style">
             <a href="/" class={currentPath === '/' ? 'current-page' : ''}>Feed</a>
@@ -35,7 +35,7 @@ const currentPath = Astro.url.pathname;
         </div>
     </header>
     <main>
-        <div class="title-name">
+        <div class="title-name" style="view-transition-name: title-name;" >
             <a href="/">
                 <h1>Marc Flaquer</h1>
             </a>
@@ -44,7 +44,33 @@ const currentPath = Astro.url.pathname;
         <slot />
     </main>
     
-    <!-- <script type="module" src="../scripts/script.js"></script> -->
+    <style is:global>
+        /* VIEW TRANSITION */
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fade-out {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        /* Transición de página completa */
+        ::view-transition-old(page) {
+            animation: fade-out 0.4s ease;
+        }
+        ::view-transition-new(page) {
+            animation: fade-in 0.4s ease;
+        }
+
+        /* Transición personalizada para .title-name */
+        ::view-transition-old(title-name),
+        ::view-transition-new(title-name) {
+            animation: none;
+            mix-blend-mode: normal;
+        }
+    </style>
     </body>
 
 </html>
