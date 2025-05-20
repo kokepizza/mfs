@@ -1,8 +1,8 @@
 ---
 import { projects } from "../assets/projects";
 import Layout from "../layouts/Layout.astro";
-import { Image } from 'astro:assets';
 import ProjectInfo from "../components/ProjectInfo.jsx";
+import ScrollSnapViewer from "../components/ScrollSnapViewer.jsx";
 
 export async function getStaticPaths() {
   return projects.map(project => ({
@@ -18,21 +18,13 @@ const { project } = Astro.props;
 
   <article class="project-page">
 
-    <div class="background-image" style={`background-image: url('${project.images[1].src}');`} aria-hidden="true"></div>
+    <div class="background-gallery" aria-hidden="true">
+      {project.images.map((image, i) => (
+        <div class="background-slide" style={`background-image: url('${image.src}')`}></div>
+      ))}
+    </div>
 
-    <figure class="project-image">
-      <Image src={project.images[0]} alt={project.name} />
-    </figure>
-
-    <aside class="image-index" aria-label="Índice de imágenes">
-      <ol>
-        {project.images.map((_, i) => (
-          <li class={i === 0 ? 'active' : ''}>
-            {String(i + 1).padStart(2, '0')}
-          </li>
-        ))}
-      </ol>
-    </aside>
+    <ScrollSnapViewer client:load images={project.images} name={project.name} />
 
     <ProjectInfo client:load name={project.name} description={project.description} />
 
@@ -45,32 +37,57 @@ const { project } = Astro.props;
       overflow: hidden;
     }
 
-    .background-image {
-      position: absolute;
+    .background-gallery {
+      position: fixed;
       inset: 0;
+      display: flex;
+      flex-direction: column;
+      z-index: 0;
+      pointer-events: none;
+      transform: translateY(0);
+      will-change: transform;
+      transition: transform 0.3s ease-out;
+    }
+
+    .background-slide {
+      flex-shrink: 0;
+      width: 100vw;
+      height: 100vh;
       background-size: cover;
       background-position: center;
-      z-index: 0;
     }
 
     .project-image {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 1;
-      max-width: 100vw;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      z-index: 2;
       max-height: 100vh;
+      padding-block: var(--padding);
+    }
+
+    .project-image::-webkit-scrollbar {
+      display: none;
+    }
+
+    .image-slide {
+      width: 100vw;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
+      scroll-snap-align: center;
+      flex-shrink: 0;
     }
 
-    .project-image img {
+    .image-slide img {
       max-width: 80vw;
       max-height: 75vh;
       object-fit: contain;
-      display: block;
     }
 
     .image-index {
@@ -101,7 +118,7 @@ const { project } = Astro.props;
       position: absolute;
       bottom: var(--padding);
       left: var(--padding);
-      z-index: 2;
+      z-index: 100;
       text-align: left;
     }
 
@@ -123,7 +140,7 @@ const { project } = Astro.props;
     }
 
     .project-info h1:hover .arrow {
-      transform: translateX(0.5rem);
+      transform: translateX(0.25rem);
     }
 
     .project-info p {
