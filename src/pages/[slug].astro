@@ -1,0 +1,153 @@
+---
+import { projects } from "../assets/projects";
+import Layout from "../layouts/Layout.astro";
+import { Image } from 'astro:assets';
+import ProjectInfo from "../components/ProjectInfo.jsx";
+
+export async function getStaticPaths() {
+  return projects.map(project => ({
+    params: { slug: project.slug },
+    props: { project }
+  }));
+}
+
+const { project } = Astro.props;
+---
+
+<Layout>
+
+  <article class="project-page">
+
+    <div class="background-image" style={`background-image: url('${project.images[1].src}');`} aria-hidden="true"></div>
+
+    <figure class="project-image">
+      <Image src={project.images[0]} alt={project.name} />
+    </figure>
+
+    <aside class="image-index" aria-label="Índice de imágenes">
+      <ol>
+        {project.images.map((_, i) => (
+          <li class={i === 0 ? 'active' : ''}>
+            {String(i + 1).padStart(2, '0')}
+          </li>
+        ))}
+      </ol>
+    </aside>
+
+    <ProjectInfo client:load name={project.name} description={project.description} />
+
+  </article>
+
+  <style is:inline>
+    .project-page {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .background-image {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+
+    .project-image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      max-width: 100vw;
+      max-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .project-image img {
+      max-width: 80vw;
+      max-height: 75vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .image-index {
+      position: absolute;
+      right: var(--padding);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+
+    .image-index ol {
+      text-align: right;
+      padding: 0;
+      margin: 0;
+    }
+
+    .image-index li {
+      opacity: 0.3;
+      transition: opacity 0.3s;
+    }
+
+    .image-index li.active {
+      opacity: 1;
+      font-weight: bold;
+    }
+
+    .project-info {
+      position: absolute;
+      bottom: var(--padding);
+      left: var(--padding);
+      z-index: 2;
+      text-align: left;
+    }
+
+    .project-info h1 {
+      text-transform: uppercase;
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: .5rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      cursor: pointer;
+    }
+
+    .arrow {
+      display: inline-block;
+      transition: transform 0.3s ease;
+      margin-bottom: 3px;
+    }
+
+    .project-info h1:hover .arrow {
+      transform: translateX(0.5rem);
+    }
+
+    .project-info p {
+      overflow: hidden;
+      opacity: 0;
+      max-height: 0;
+      visibility: hidden;
+    }
+
+    .title-name {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: clamp(.8rem, 4vw, 1.8rem);
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      filter: blur(.25rem);
+      z-index: 100;
+      pointer-events: auto;
+      transition: filter .7s ease;
+      padding: var(--padding);
+    }
+  </style>
+
+</Layout>

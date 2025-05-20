@@ -79,7 +79,7 @@ export default function Feed() {
     <section className="feed" ref={feedRef}>
       {projects.map((project, i) => (
         <article className="feed-grid" data-slide key={i}>
-          <a href={project.url} data-preview={i + 1}>
+          <a href={`/${project.slug}`} data-preview={i + 1}>
             <div className="feed-project">
               <figure className="feed-project-fig">
                 <img src={project.images[0].src} alt={project.name} title={project.name} />
