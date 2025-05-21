@@ -1,4 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
+import { gsap } from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+
+gsap.registerPlugin(ScrollToPlugin);
 
 export default function ScrollSnapViewer({ images, name }) {
   const containerRef = useRef(null);
@@ -34,13 +38,17 @@ export default function ScrollSnapViewer({ images, name }) {
     const container = containerRef.current;
     const target = container.querySelectorAll('.image-slide')[index];
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      gsap.to(container, {
+        duration: 1,
+        scrollTo: { y: target, offsetY: 0 },
+        ease: 'power2.inOut',
+      });
     }
   };
 
   return (
     <>
-      <figure className="project-image" ref={containerRef}>
+      <figure ref={containerRef} className="project-image">
         {images.map((image, i) => (
           <div className="image-slide" key={i}>
             <img src={image.src} alt={`${name} ${i + 1}`} />
