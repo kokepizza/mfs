@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollToPlugin);
+gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
 
 export default function ScrollSnapViewer({ images, name }) {
   const containerRef = useRef(null);
@@ -12,25 +13,19 @@ export default function ScrollSnapViewer({ images, name }) {
     const container = containerRef.current;
     const slides = container.querySelectorAll('.image-slide');
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = Array.from(slides).indexOf(entry.target);
-            setActiveIndex(index);
-          }
-        });
-      },
-      {
-        root: container,
-        threshold: 0.6,
-      }
-    );
-
-    slides.forEach((slide) => observer.observe(slide));
+    slides.forEach((slide, i) => {
+      ScrollTrigger.create({
+        trigger: slide,
+        start: 'top 60%',
+        end: 'bottom 40%',
+        onEnter: () => setActiveIndex(i),
+        onEnterBack: () => setActiveIndex(i),
+        scroller: container, 
+      });
+    });
 
     return () => {
-      observer.disconnect();
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, [images]);
 
