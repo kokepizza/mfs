@@ -1,0 +1,49 @@
+/* Tipografías */
+@font-face {
+  font-family: 'ABC Diatype';
+  src: url('/fonts/ABCDiatypePlusVariable.woff2') format('woff2'),
+       url('/fonts/ABCDiatypePlusVariable.woff') format('woff');
+  font-weight: 100 900;
+  font-style: normal italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Jokker';
+  src: url('/fonts/JokkerTRIALVF.woff2') format('woff2'),
+       url('/fonts/JokkerTRIALVF.woff') format('woff');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('/fonts/SpaceGrotesk-VariableFont.woff2') format('woff2'),
+       url('/fonts/SpaceGrotesk-VariableFont.woff') format('woff');
+  font-weight: 100 700;
+  font-style: normal;
+}
+
+/* Estilos base */
+:root {
+  color-scheme: dark;
+  --black: #1D1D1B;
+  --white: #F5F5F5;
+}
+
+html {
+  font-family: 'ABC Diatype', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  background-color: var(--black);
+}
+
+::selection {
+  background-color: var(--white);
+  color: var(--black);
+}
+
+@import "tailwindcss";
