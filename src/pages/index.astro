@@ -1,8 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Image from 'astro/components/Image.astro';
 import { projects } from '../data/projects';
-import { getImage } from '../data/imageMap';
 ---
 
 <Layout>
@@ -14,8 +12,8 @@ import { getImage } from '../data/imageMap';
 
   <div class="h-screen w-screen overflow-y-scroll snap-y snap-mandatory">
     {projects.map((project) => (
-      <Image
-        src={getImage(project.images[0])}
+      <img
+        src={project.images[0]}
         alt={project.name}
         class="h-screen w-screen object-cover snap-start"
         loading="lazy"
