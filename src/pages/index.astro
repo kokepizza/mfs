@@ -2,21 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import Image from 'astro/components/Image.astro';
 import { projects } from '../data/projects';
-
-const imageImports = await Promise.all(
-  projects.flatMap((project) => project.images).map((path) => import(`../${path}`))
-);
-
-// Crea un Map con path → img para usar en el render
-const imageMap = new Map();
-imageImports.forEach((img, i) => {
-  const path = projects.flatMap(p => p.images)[i];
-  imageMap.set(path, img.default);
-});
+import { getImage } from '../data/imageMap';
 ---
 
 <Layout>
-
   <div class="title-name">
     <a href="/">
       <h1>Marc Flaquer</h1>
@@ -26,7 +15,7 @@ imageImports.forEach((img, i) => {
   <div class="h-screen w-screen overflow-y-scroll snap-y snap-mandatory">
     {projects.map((project) => (
       <Image
-        src={imageMap.get(project.images[0])}
+        src={getImage(project.images[0])}
         alt={project.name}
         class="h-screen w-screen object-cover snap-start"
         loading="lazy"
@@ -57,5 +46,4 @@ imageImports.forEach((img, i) => {
       }
     }
   </style>
-
 </Layout>
