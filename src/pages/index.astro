@@ -1,12 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Image from 'astro/components/Image.astro';
+import { projects } from '../data/projects';
 
-const imageImports = Array.from({ length: 12 }, (_, i) =>
-  import(`../assets/${i + 1}.jpg`)
+const imageImports = await Promise.all(
+  projects.flatMap((project) => project.images).map((path) => import(`../${path}`))
 );
 
-const images = await Promise.all(imageImports);
+// Crea un Map con path → img para usar en el render
+const imageMap = new Map();
+imageImports.forEach((img, i) => {
+  const path = projects.flatMap(p => p.images)[i];
+  imageMap.set(path, img.default);
+});
 ---
 
 <Layout>
@@ -18,10 +24,10 @@ const images = await Promise.all(imageImports);
   </div>
 
   <div class="h-screen w-screen overflow-y-scroll snap-y snap-mandatory">
-    {images.map((img, index) => (
+    {projects.map((project) => (
       <Image
-        src={img.default}
-        alt={`Imagen ${index + 1}`}
+        src={imageMap.get(project.images[0])}
+        alt={project.name}
         class="h-screen w-screen object-cover snap-start"
         loading="lazy"
       />
