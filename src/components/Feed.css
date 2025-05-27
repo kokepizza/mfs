@@ -3,6 +3,12 @@
   width: 100vw;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  }
+
+  .feed-container::-webkit-scrollbar {
+    display: none;
 }
 
 .project-card {
