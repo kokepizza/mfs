@@ -2,6 +2,8 @@
 import '../styles/global.css';
 import Header from '../components/Header.tsx';
 import { ClientRouter } from 'astro:transitions';
+
+const { title = "Marc Flaquer", description = "Descripción breve de la página web para mejorar SEO." } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -14,8 +16,8 @@ import { ClientRouter } from 'astro:transitions';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!-- SEO -->
-    <title>Marc Flaquer</title>
-    <meta name="description" content="Descripción breve de la página web para mejorar SEO.">
+    <title>{title}</title>
+    <meta name="description" content={description}>
     <meta name="author" content="kokepizza">
     <meta name="keywords" content="palabra, palabra, palabra">
 

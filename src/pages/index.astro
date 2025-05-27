@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { projects } from '../data/projects';
+import Feed from '../components/Feed';
 ---
 
 <Layout>
@@ -10,16 +11,8 @@ import { projects } from '../data/projects';
     </a>
   </div>
 
-  <div class="h-screen w-screen overflow-y-scroll snap-y snap-mandatory">
-    {projects.map((project) => (
-      <img
-        src={project.images[0]}
-        alt={project.name}
-        class="h-screen w-screen object-cover snap-start"
-        loading="lazy"
-      />
-    ))}
-  </div>
+
+  <Feed projects={projects} client:load />
 
   <style>
     .title-name {
@@ -29,7 +22,7 @@ import { projects } from '../data/projects';
       transform: translateX(-50%);
       font-family: 'ABC Diatype', sans-serif;
       font-weight: 900;
-      font-size: 15vw;
+      font-size: 8vw;
       white-space: nowrap;
       z-index: 10;
       mix-blend-mode: difference;
