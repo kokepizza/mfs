@@ -14,11 +14,12 @@ const Carousel = () => {
     <>
       <div id="bg" className="image-bg">
         {projects.map((project, index) => (
-          <div
+          <a
             key={index}
+            href={project.slug}
             className={`bg-image${index === activeIndex ? ' active' : ''}`}
             style={{ backgroundImage: `url(${project.images[0]})` }}
-          ></div>
+          ></a>
         ))}
       </div>
 
