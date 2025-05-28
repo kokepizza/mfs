@@ -1,36 +1,26 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { projects } from '../data/projects';
 import './carousel.css';
 
 const Carousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const bgRef = useRef<HTMLDivElement>(null);
 
   const handleClick = (index: number) => {
-    if (index === activeIndex) return; // evitar doble clic innecesario
+    if (index === activeIndex) return;
     setActiveIndex(index);
-
-    const newBg = projects[index].images[0];
-
-    if (bgRef.current) {
-      bgRef.current.style.opacity = '0';
-      setTimeout(() => {
-        if (bgRef.current) {
-          bgRef.current.style.backgroundImage = `url(${newBg})`;
-          bgRef.current.style.opacity = '1';
-        }
-      }, 200);
-    }
   };
 
   return (
     <>
-      <div
-        id="bg"
-        className="image-bg"
-        ref={bgRef}
-        style={{ backgroundImage: `url(${projects[0].images[0]})` }}
-      ></div>
+      <div id="bg" className="image-bg">
+        {projects.map((project, index) => (
+          <div
+            key={index}
+            className={`bg-image${index === activeIndex ? ' active' : ''}`}
+            style={{ backgroundImage: `url(${project.images[0]})` }}
+          ></div>
+        ))}
+      </div>
 
       <section className="carousel-wrapper">
         <div className="carousel">

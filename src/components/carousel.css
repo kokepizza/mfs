@@ -12,12 +12,21 @@
     inset: 0;
     width: 100vw;
     height: 100vh;
+    z-index: -1;
+}
+
+.bg-image {
+    position: absolute;
+    inset: 0;
     background-size: cover;
     background-position: center;
-    z-index: -1;
-    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    will-change: opacity;
+}
+
+.bg-image.active {
     opacity: 1;
-    will-change: background-image, opacity;
 }
 
 .carousel-wrapper {
