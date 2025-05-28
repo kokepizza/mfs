@@ -16,11 +16,17 @@ export default function Feed({ projects }: FeedProps) {
     const feed = feedRef.current;
     if (!feed || !logoRef.current) return;
 
+    let prevScrollTop = feed.scrollTop;
+
     const updateRotation = () => {
-      const scrollY = feed.scrollTop;
-      const targetRotation = scrollY * 0.2; 
-      rotationRef.current += (targetRotation - rotationRef.current) * 0.1;
-      gsap.set(logoRef.current, { rotate: rotationRef.current });
+      const currentScrollTop = feed.scrollTop;
+      const delta = currentScrollTop - prevScrollTop;
+
+      if (delta !== 0) {
+        rotationRef.current += delta * 0.2;
+        gsap.set(logoRef.current, { rotate: rotationRef.current });
+        prevScrollTop = currentScrollTop;
+      }
     };
 
     gsap.ticker.add(updateRotation);
