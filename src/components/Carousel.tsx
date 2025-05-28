@@ -12,14 +12,9 @@ const Carousel = () => {
   const bgRef = useRef<HTMLElement>(null);
   const isTouchDevice = typeof window !== 'undefined' && 'ontouchstart' in window;
 
-  const repetitions = 5;
-  const repeatedProjects = Array.from({ length: repetitions }).flatMap(() => projects);
-  const middleIndex = Math.floor(repeatedProjects.length / 2);
-
   const handleClick = (index: number) => {
-    const realIndex = index % projects.length;
-    setActiveIndex(realIndex);
-    const bg = projects[realIndex].images[0];
+    setActiveIndex(index);
+    const bg = projects[index].images[0];
     if (bgRef.current) {
       bgRef.current.style.backgroundImage = `url(${bg})`;
     }
@@ -29,42 +24,19 @@ const Carousel = () => {
     const carousel = carouselRef.current;
     if (!carousel) return;
 
-    if (isTouchDevice) {
-      // 🌐 Móviles: scroll horizontal infinito en ambas direcciones
-      const sectionWidth = carousel.scrollWidth / repetitions;
-      carousel.scrollLeft = sectionWidth * Math.floor(repetitions / 2);
-
-      const loopScroll = () => {
-        const scrollLeft = carousel.scrollLeft;
-        if (scrollLeft <= sectionWidth * 0.5) {
-          carousel.scrollLeft += sectionWidth * (repetitions - 2);
-        } else if (scrollLeft >= sectionWidth * (repetitions - 0.5)) {
-          carousel.scrollLeft -= sectionWidth * (repetitions - 2);
-        }
-      };
-
-      carousel.addEventListener('scroll', loopScroll);
-      return () => carousel.removeEventListener('scroll', loopScroll);
-    } else {
-      // 🖥️ Escritorio: scroll vertical -> translateX infinito con GSAP
-      const sectionWidth = carousel.scrollWidth / repetitions;
+    if (!isTouchDevice) {
+      // 🖥️ Escritorio: scroll vertical -> scroll horizontal con GSAP
+      const sectionWidth = carousel.scrollWidth;
       document.body.style.height = `${sectionWidth}px`;
 
       const tween = gsap.to(carousel, {
-        x: () => `-${sectionWidth * (repetitions - 1) / 2}px`,
+        x: () => `-${sectionWidth - window.innerWidth}px`,
         ease: 'none',
         scrollTrigger: {
           trigger: document.body,
           start: 'top top',
-          end: () => `+=${sectionWidth}`,
+          end: () => `+=${sectionWidth - window.innerWidth}`,
           scrub: true,
-          onUpdate: (self) => {
-            if (self.progress <= 0.05) {
-              self.scroll(self.end - sectionWidth * 0.1);
-            } else if (self.progress >= 0.95) {
-              self.scroll(self.start + sectionWidth * 0.1);
-            }
-          },
         },
       });
 
@@ -87,10 +59,10 @@ const Carousel = () => {
 
       <section className="carousel-wrapper">
         <div className="carousel" id="carousel" ref={carouselRef}>
-          {repeatedProjects.map((project, index) => (
+          {projects.map((project, index) => (
             <article
-              key={`${index}-${project.name}`}
-              className={`thumb${index % projects.length === activeIndex ? ' active' : ''}`}
+              key={index}
+              className={`thumb${index === activeIndex ? ' active' : ''}`}
               data-bg={project.images[0]}
               aria-label="View work"
               onClick={() => handleClick(index)}
