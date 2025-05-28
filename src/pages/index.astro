@@ -1,40 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { projects } from '../data/projects';
-import Feed from '../components/Feed';
+import Carousel from '../components/Carousel';
 ---
 
 <Layout>
-  <div class="title-name">
-    <a href="/">
-      <h1>Marc Flaquer</h1>
-    </a>
-  </div>
 
+  <Carousel client:only/>
 
-  <Feed projects={projects} client:load />
-
-  <style>
-    .title-name {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: 'ABC Diatype', sans-serif;
-      font-weight: 900;
-      font-size: 8vw;
-      white-space: nowrap;
-      z-index: 10;
-      mix-blend-mode: difference;
-      pointer-events: none;
-    }
-
-    @media (min-width: 768px) {
-      .title-name {
-        bottom: 50%;
-        transform: translate(-50%, 50%);
-        font-size: 5vw;
-      }
-    }
-  </style>
 </Layout>
