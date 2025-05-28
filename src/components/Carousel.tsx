@@ -1,43 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { projects } from '../data/projects';
 import './carousel.css';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Carousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const carouselRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
-
-    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-
-    if (!isTouchDevice) {
-      const totalScroll = carousel.scrollWidth - window.innerWidth;
-
-      gsap.to(carousel, {
-        x: () => `-${totalScroll}px`,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: document.body,
-          start: 'top top',
-          end: `+=${totalScroll}`,
-          scrub: true,
-        },
-      });
-
-      return () => {
-        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-      };
-    } else {
-      // En móvil: reset transform por si GSAP dejó algo
-      gsap.set(carousel, { x: 0 });
-    }
-  }, []);
 
   const handleClick = (index: number) => {
     setActiveIndex(index);
@@ -50,14 +16,10 @@ const Carousel = () => {
 
   return (
     <>
-      <section
-        id="bg"
-        className="image-bg"
-        style={{ backgroundImage: `url(${projects[0].images[0]})` }}
-      ></section>
+      <section id="bg" className="image-bg" style={{ backgroundImage: `url(${projects[0].images[0]})` }}></section>
 
       <section className="carousel-wrapper">
-        <div className="carousel" id="carousel" ref={carouselRef}>
+        <div className="carousel" id="carousel">
           {projects.map((project, index) => (
             <article
               key={index}
@@ -66,11 +28,7 @@ const Carousel = () => {
               aria-label="View work"
               onClick={() => handleClick(index)}
             >
-              <img
-                src={project.images[0]}
-                alt={project.name}
-                title={project.name}
-              />
+              <img src={project.images[0]} alt={project.name} title={project.name} />
             </article>
           ))}
         </div>
