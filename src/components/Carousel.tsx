@@ -35,6 +35,7 @@ const Carousel = () => {
                 alt={project.name}
                 title={project.name}
               />
+              <span className="thumb-title">{project.name}</span>
             </article>
           ))}
         </div>

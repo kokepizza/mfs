@@ -1,0 +1,54 @@
+---
+const pathname = Astro.url.pathname;
+const currentPath = pathname !== '/' && pathname.endsWith('/')
+  ? pathname.slice(0, -1)
+  : pathname;
+---
+
+<header class="header">
+  <div class="view-style">
+    <a href="/" class={currentPath === '/' ? 'current-page' : ''}>Feed</a>
+    <a href="/work-list" class={currentPath === '/work-list' ? 'current-page' : ''}>List</a>
+  </div>
+
+  <div class="nav">
+    <a href="/about" class={currentPath === '/about' ? 'current-page' : ''}>About</a>
+    <a href="/contact" class={currentPath === '/contact' ? 'current-page' : ''}>Contact</a>
+  </div>
+</header>
+
+<style is:inline>
+  header {
+      position: fixed;
+      padding: var(--padding) var(--padding) 0;
+      pointer-events: none;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      z-index: 100;
+      text-transform: uppercase;
+      font-size: .75rem;
+      mix-blend-mode: difference;
+  }
+
+  .view-style,
+  .nav {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      pointer-events: auto;
+  }
+
+  .current-page {
+      text-decoration: underline;
+  }
+
+  .nav {
+      text-align: right;
+  }
+
+  .view-style a:hover,
+  .nav a:hover {
+      text-decoration: underline;
+  }
+</style>

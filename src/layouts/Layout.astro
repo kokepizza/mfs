@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import Header from '../components/Header.tsx';
+import Header from '../components/Header.astro';
 
 const { title = "Marc Flaquer", description = "Descripción breve de la página web para mejorar SEO." } = Astro.props;
 ---
@@ -26,7 +26,7 @@ const { title = "Marc Flaquer", description = "Descripción breve de la página 
 </head>
 
 <body>
-    <Header client:visible/>
+    <Header />
     <main>
 
         <slot />
