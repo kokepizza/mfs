@@ -24,7 +24,7 @@ const Carousel = () => {
     let isMounted = false;
 
     const setupCursor = () => {
-      const EASE = 0.16;
+      const EASE = 0.3;
       const cursor = cursorRef.current;
       const bg = document.getElementById('bg');
       const canvas = document.getElementById('cursor-canvas') as HTMLCanvasElement;
