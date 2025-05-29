@@ -28,7 +28,6 @@ const currentPath = pathname !== '/' && pathname.endsWith('/')
       z-index: 100;
       text-transform: uppercase;
       font-size: .75rem;
-      mix-blend-mode: difference;
   }
 
   .view-style,
@@ -37,6 +36,7 @@ const currentPath = pathname !== '/' && pathname.endsWith('/')
       flex-direction: column;
       gap: .75rem;
       pointer-events: auto;
+      text-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
   }
 
   .current-page {
