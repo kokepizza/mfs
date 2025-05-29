@@ -23,27 +23,68 @@ const Carousel = () => {
     const EASE = 0.16;
     const cursor = cursorRef.current;
     const bg = document.getElementById('bg');
-    if (!cursor || !bg) return;
+    const canvas = document.getElementById('cursor-canvas') as HTMLCanvasElement;
+    const ctx = canvas?.getContext('2d');
+
+    if (!cursor || !bg || !canvas || !ctx) return;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const points: { x: number; y: number; alpha: number }[] = [];
+    let isActive = false;
 
     const handleMouseMove = (e: MouseEvent) => {
       positionX.current.target = e.clientX;
       positionY.current.target = e.clientY;
+
+      if (isActive) {
+        points.push({
+          x: e.clientX,
+          y: e.clientY,
+          alpha: 0.2,
+        });
+
+        if (points.length > 50) points.shift();
+      }
     };
 
     const showCursor = () => {
       cursor.style.opacity = '1';
+      isActive = true;
     };
 
     const hideCursor = () => {
       cursor.style.opacity = '0';
+      isActive = false;
     };
 
     const update = () => {
       positionX.current.current = lerp(positionX.current.current, positionX.current.target, EASE);
       positionY.current.current = lerp(positionY.current.current, positionY.current.target, EASE);
-      if (cursor) {
-        cursor.style.transform = `translate3d(${positionX.current.current}px, ${positionY.current.current}px, 0)`;
+      cursor.style.transform = `translate3d(${positionX.current.current}px, ${positionY.current.current}px, 0)`;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (isActive) {
+        for (let i = 0; i < points.length; i++) {
+          const p = points[i];
+          ctx.save();
+          ctx.globalAlpha = p.alpha;
+          ctx.fillStyle = 'white';
+          ctx.font = '24px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('View project ↗', p.x, p.y);
+          ctx.restore();
+          p.alpha -= 0.005;
+        }
+
+        for (let i = points.length - 1; i >= 0; i--) {
+          if (points[i].alpha <= 0) points.splice(i, 1);
+        }
       }
+
       requestAnimationFrame(update);
     };
 
@@ -51,7 +92,6 @@ const Carousel = () => {
     bg.addEventListener('mouseenter', showCursor);
     bg.addEventListener('mouseleave', hideCursor);
 
-    // Ocultar al inicio
     cursor.style.opacity = '0';
     update();
 
@@ -76,6 +116,7 @@ const Carousel = () => {
         ))}
       </div>
 
+      <canvas id="cursor-canvas" className="cursor-canvas"></canvas>
       <div className="text-cursor-wrapper" ref={cursorRef}>
         <div className="text-cursor">
           <p>View project ↗</p>

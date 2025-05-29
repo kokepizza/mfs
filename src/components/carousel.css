@@ -49,12 +49,12 @@
     bottom: 0;
     left: 0;
     width: 100vw;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow-x: scroll;
     -webkit-overflow-scrolling: touch;
     padding: 0 1.5rem 1.5rem;
     box-sizing: border-box;
     z-index: 10;
+    cursor: grab;
 }
 
 .carousel {
@@ -63,6 +63,14 @@
     will-change: transform;
     width: fit-content;
     user-select: none;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.carousel.dragging {
+  cursor: grabbing;
+  cursor: -webkit-grabbing;
+  user-select: none;
 }
 
 .thumb {
@@ -137,9 +145,15 @@
   white-space: nowrap;
 }
 
-.carousel.dragging {
-  cursor: grabbing;
-  user-select: none;
+.cursor-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9998;
+  mix-blend-mode: difference;
 }
 
 /* @media (min-width: 768px) {
