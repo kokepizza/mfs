@@ -20,85 +20,107 @@ const Carousel = () => {
   };
 
   useEffect(() => {
-    const EASE = 0.16;
-    const cursor = cursorRef.current;
-    const bg = document.getElementById('bg');
-    const canvas = document.getElementById('cursor-canvas') as HTMLCanvasElement;
-    const ctx = canvas?.getContext('2d');
+    let animationId: number;
+    let isMounted = false;
 
-    if (!cursor || !bg || !canvas || !ctx) return;
+    const setupCursor = () => {
+      const EASE = 0.16;
+      const cursor = cursorRef.current;
+      const bg = document.getElementById('bg');
+      const canvas = document.getElementById('cursor-canvas') as HTMLCanvasElement;
+      const ctx = canvas?.getContext('2d');
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+      if (!cursor || !bg || !canvas || !ctx) return;
 
-    const points: { x: number; y: number; alpha: number }[] = [];
-    let isActive = false;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
 
-    const handleMouseMove = (e: MouseEvent) => {
-      positionX.current.target = e.clientX;
-      positionY.current.target = e.clientY;
+      const points: { x: number; y: number; alpha: number }[] = [];
+      let isActive = false;
 
-      if (isActive) {
-        points.push({
-          x: e.clientX,
-          y: e.clientY,
-          alpha: 0.2,
-        });
+      const handleMouseMove = (e: MouseEvent) => {
+        positionX.current.target = e.clientX;
+        positionY.current.target = e.clientY;
 
-        if (points.length > 50) points.shift();
-      }
-    };
+        if (isActive) {
+          points.push({ x: e.clientX, y: e.clientY, alpha: 0.2 });
+          if (points.length > 50) points.shift();
+        }
+      };
 
-    const showCursor = () => {
-      cursor.style.opacity = '1';
-      isActive = true;
-    };
+      const showCursor = () => {
+        cursor.style.opacity = '1';
+        isActive = true;
+      };
 
-    const hideCursor = () => {
+      const hideCursor = () => {
+        cursor.style.opacity = '0';
+        isActive = false;
+      };
+
+      const update = () => {
+        positionX.current.current = lerp(positionX.current.current, positionX.current.target, EASE);
+        positionY.current.current = lerp(positionY.current.current, positionY.current.target, EASE);
+        cursor.style.transform = `translate3d(${positionX.current.current}px, ${positionY.current.current}px, 0)`;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (isActive) {
+          for (let i = 0; i < points.length; i++) {
+            const p = points[i];
+            ctx.save();
+            ctx.globalAlpha = p.alpha;
+            ctx.fillStyle = 'white';
+            ctx.font = '24px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('View project ↗', p.x, p.y);
+            ctx.restore();
+            p.alpha -= 0.005;
+          }
+
+          for (let i = points.length - 1; i >= 0; i--) {
+            if (points[i].alpha <= 0) points.splice(i, 1);
+          }
+        }
+
+        animationId = requestAnimationFrame(update);
+      };
+
+      window.addEventListener('mousemove', handleMouseMove);
+      bg.addEventListener('mouseenter', showCursor);
+      bg.addEventListener('mouseleave', hideCursor);
+
       cursor.style.opacity = '0';
-      isActive = false;
+      update();
+
+      isMounted = true;
+
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove);
+        bg.removeEventListener('mouseenter', showCursor);
+        bg.removeEventListener('mouseleave', hideCursor);
+        cancelAnimationFrame(animationId);
+      };
     };
 
-    const update = () => {
-      positionX.current.current = lerp(positionX.current.current, positionX.current.target, EASE);
-      positionY.current.current = lerp(positionY.current.current, positionY.current.target, EASE);
-      cursor.style.transform = `translate3d(${positionX.current.current}px, ${positionY.current.current}px, 0)`;
+    let cleanup: (() => void) | undefined;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      if (isActive) {
-        for (let i = 0; i < points.length; i++) {
-          const p = points[i];
-          ctx.save();
-          ctx.globalAlpha = p.alpha;
-          ctx.fillStyle = 'white';
-          ctx.font = '24px sans-serif';
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText('View project ↗', p.x, p.y);
-          ctx.restore();
-          p.alpha -= 0.005;
-        }
-
-        for (let i = points.length - 1; i >= 0; i--) {
-          if (points[i].alpha <= 0) points.splice(i, 1);
-        }
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && !isMounted) {
+        cleanup = setupCursor();
+      } else if (window.innerWidth < 768 && isMounted) {
+        cleanup?.();
+        isMounted = false;
       }
-
-      requestAnimationFrame(update);
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    bg.addEventListener('mouseenter', showCursor);
-    bg.addEventListener('mouseleave', hideCursor);
-
-    cursor.style.opacity = '0';
-    update();
+    handleResize(); // Ejecutar al montar
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      bg.removeEventListener('mouseenter', showCursor);
-      bg.removeEventListener('mouseleave', hideCursor);
+      cleanup?.();
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
