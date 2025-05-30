@@ -57,14 +57,12 @@ const Project: React.FC<ProjectProps> = ({ name, description, images }) => {
             ease: 'EASE',
             onComplete: () => {
             if (!isOpen) {
-                // Fijar a 'auto' después de abrir para permitir contenido dinámico
                 element.style.height = 'auto';
             }
             },
         });
 
         if (isOpen) {
-            // Si se está cerrando, volver a un valor fijo
             element.style.height = `${element.scrollHeight}px`;
             requestAnimationFrame(() => {
             gsap.to(element, {
