@@ -145,6 +145,15 @@
   white-space: nowrap;
 }
 
+.text-cursor p {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.text-cursor p[style*="display: none"] {
+    opacity: 0;
+}
+
 .cursor-canvas {
   position: fixed;
   top: 0;

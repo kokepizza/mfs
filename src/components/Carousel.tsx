@@ -37,10 +37,20 @@ const Carousel = () => {
 
       const points: { x: number; y: number; alpha: number }[] = [];
       let isActive = false;
+      const textElement = cursor.querySelector('p') as HTMLParagraphElement;
+      let inactivityTimeout: number;
 
       const handleMouseMove = (e: MouseEvent) => {
         positionX.current.target = e.clientX;
         positionY.current.target = e.clientY;
+
+        if (textElement) {
+          textElement.style.display = 'none';
+          clearTimeout(inactivityTimeout);
+          inactivityTimeout = window.setTimeout(() => {
+            textElement.style.display = 'block';
+          }, 100);
+        }
 
         if (isActive) {
           points.push({ x: e.clientX, y: e.clientY, alpha: 0.2 });
@@ -56,6 +66,10 @@ const Carousel = () => {
       const hideCursor = () => {
         cursor.style.opacity = '0';
         isActive = false;
+        if (textElement) {
+          textElement.style.display = 'none';
+          clearTimeout(inactivityTimeout);
+        }
       };
 
       const update = () => {
@@ -92,6 +106,7 @@ const Carousel = () => {
       bg.addEventListener('mouseleave', hideCursor);
 
       cursor.style.opacity = '0';
+      if (textElement) textElement.style.display = 'none';
       update();
 
       isMounted = true;
@@ -101,6 +116,7 @@ const Carousel = () => {
         bg.removeEventListener('mouseenter', showCursor);
         bg.removeEventListener('mouseleave', hideCursor);
         cancelAnimationFrame(animationId);
+        clearTimeout(inactivityTimeout);
       };
     };
 
