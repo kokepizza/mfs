@@ -30,6 +30,13 @@ const GalleryWrapper = () => {
       });
     };
 
+    if (wrapper) {
+        wrapper.scrollTo({
+            left: wrapper.scrollWidth,
+            behavior: "auto"
+        });
+    }
+
     wrapper?.addEventListener("scroll", () => {
       requestAnimationFrame(updateCard);
     });
