@@ -1,6 +1,7 @@
 ---
 import { projects } from "../data/projects";
 import { Image } from "astro:assets";
+import GalleryWrapper from "./GalleryWrapper";
 ---
 
 <style is:inline>
@@ -8,6 +9,8 @@ import { Image } from "astro:assets";
         position: relative;
         width: 100dvw;
         height: 100dvh;
+        background-size: cover;
+        background-position: center;
     }
 
     .projects-wrapper {
@@ -39,20 +42,43 @@ import { Image } from "astro:assets";
         margin-right: 32vw;
     }
 
+    .project-card:first-child {
+        margin-left: 32vw;
+    }
+
     img {
         object-fit: cover;
         user-select: none;
     }
+
+    .projectmark {
+        position: fixed;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9999;
+        width: 2px;
+        height: 5rem;
+        background-color: var(--white);
+    }
+
 </style>
 
 <section class="gallery">
     <div class="projects-wrapper">
         <div class="projects-container">
             {projects.map((project) => (
-                <a href={project.slug} class="project-card">
+                <a 
+                href={project.slug}
+                class="project-card"
+                data-image={project.images[0].src}
+                >
                     <Image src={project.images[0]} alt={project.name} width={80} height={50} />
                 </a>
             ))}
         </div>
     </div>
+    <div class="projectmark"></div>
+
+    <GalleryWrapper client:load />
 </section>
