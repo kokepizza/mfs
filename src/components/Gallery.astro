@@ -5,83 +5,101 @@ import GalleryWrapper from "./GalleryWrapper";
 ---
 
 <style is:inline>
-    .gallery {
-        position: relative;
-        width: 100dvw;
-        height: 100dvh;
-        background-size: cover;
-        background-position: center;
-    }
+  .gallery {
+    position: relative;
+    width: 100dvw;
+    height: 100dvh;
+    background-size: cover;
+    background-position: center;
+  }
 
-    .projects-wrapper {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        padding: var(--padding);
-        overflow-x: auto;
-        width: 100%;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-    }
+  .projects-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: var(--padding);
+    overflow-x: auto;
+    width: 100%;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
 
-    .projects-wrapper::-webkit-scrollbar {
-        display: none;
-    }
+  .projects-wrapper::-webkit-scrollbar {
+    display: none;
+  }
 
-    .projects-container {
-        display: flex;
-        gap: .5rem;
-        width: fit-content;
-    }
+  .projects-container {
+    display: flex;
+    gap: 0.5rem;
+    width: fit-content;
+  }
 
-    .project-card {
-        flex: 0 0 auto;
-    }
+  .project-card {
+    flex: 0 0 auto;
+  }
 
-    .project-card:last-child {
-        margin-right: 32vw;
-    }
+  .project-card:last-child {
+    margin-right: 32vw;
+  }
 
-    .project-card:first-child {
-        margin-left: 32vw;
-    }
+  .project-card:first-child {
+    margin-left: 32vw;
+  }
 
-    img {
-        object-fit: cover;
-        user-select: none;
-    }
+  img {
+    object-fit: cover;
+    user-select: none;
+  }
 
-    .projectmark {
-        position: fixed;
-        bottom: 1rem;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 9999;
-        width: 2px;
-        height: 5rem;
-        background-color: var(--white);
-    }
+  .projectmark {
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    width: 2px;
+    height: 5rem;
+    background-color: var(--white);
+  }
+
+  .project-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1rem var(--padding);
+    white-space: nowrap;
+    border-radius: 1rem;
+    backdrop-filter: blur(0.5rem);
+    background: rgba(255, 255, 255, 0.2);
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+  }
 
 </style>
 
-<section class="gallery">
-    <div class="project-title">
-        <h2></h2>
-    </div>
-    <div class="projects-wrapper">
-        <div class="projects-container">
-            {projects.map((project) => (
-                <a 
-                href={project.slug}
-                class="project-card"
-                data-image={project.images[0].src}
-                >
-                    <Image src={project.images[0]} alt={project.name} width={80} height={50} />
-                </a>
-            ))}
-        </div>
-    </div>
-    <div class="projectmark"></div>
+<section class="gallery" id="gallery">
+  <a id="project-link" class="project-title" href="#" target="_blank" rel="noopener noreferrer" tabindex="0">
+    <h2>Proyecto</h2>
+  </a>
 
-    <GalleryWrapper client:load />
+  <div class="projects-wrapper">
+    <div class="projects-container">
+      {projects.map((project) => (
+        <article
+          class="project-card"
+          data-image={project.images[0].src}
+          data-name={project.name}
+          data-slug={project.slug}
+        >
+          <Image src={project.images[0]} alt={project.name} width={80} height={50} />
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <div class="projectmark"></div>
+
+  <GalleryWrapper client:load />
 </section>
