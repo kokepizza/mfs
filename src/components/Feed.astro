@@ -1,0 +1,17 @@
+---
+import { projects } from "../data/projects";
+import Gallery from "./Gallery";
+import Thumbnails from "./Thumbnails.astro";
+---
+
+<section class="feed">
+  <Gallery client:visible projects={projects} />
+  <Thumbnails projects={projects} />
+</section>
+
+<style>
+    .feed {
+        position: relative;
+        height: 100dvh;
+    }
+</style>

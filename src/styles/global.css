@@ -39,6 +39,7 @@ button {
   --black: #1D1D1B;
   --white: #F5F5F5;
   --padding: 1.5rem;
+  --ease: cubic-bezier(0.075, 0.82, 0.165, 1)
 }
 
 html {
@@ -54,4 +55,21 @@ html {
 ::selection {
   background-color: var(--white);
   color: var(--black);
+}
+
+.project-gallery {
+  text-align: center;
+  padding: 4rem var(--padding);
+}
+
+.project-gallery h2 {
+  padding: var(--padding);
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+.main-image {
+  height: 60vh;
+  object-fit: contain;
+  width: 100%;
 }

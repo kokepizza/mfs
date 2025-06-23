@@ -1,0 +1,74 @@
+---
+import { Image } from "astro:assets";
+
+const { projects } = Astro.props;
+---
+
+<div class="thumbnail-slider" data-thumbs>
+  <div class="slider-inner">
+    {projects.map((project) => (
+        <Image
+          data-thumb
+          src={project.images[0]}
+          alt={project.name}
+          width={80}
+          height={56}
+          class="thumb"
+        />
+    ))}
+  </div>
+  <div class="thumb-mark"></div>
+</div>
+
+<style>
+    .thumb-mark {
+        position: fixed;
+        left: 50%;
+        bottom: 1rem;
+        transform: translateX(-50%);
+        width: 2px;
+        height: 5rem;
+        background-color: var(--white);
+    }
+
+    .thumbnail-slider {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        padding: var(--padding);
+        z-index: 10;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .thumbnail-slider::-webkit-scrollbar {
+        display: none;
+    }
+
+    .slider-inner {
+        display: flex;
+        gap: 1rem;
+        min-width: max-content;
+    }
+
+    .thumb {
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .thumb:first-child {
+        margin-left: calc((100vw - 80px) / 2);
+    }
+
+    .thumb:last-child {
+        margin-right: calc((100vw - 80px) / 2);
+    }
+
+    .thumb:hover {
+        transform: scale(1.2);
+    }
+</style>

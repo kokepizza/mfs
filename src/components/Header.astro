@@ -6,49 +6,35 @@ const currentPath = pathname !== '/' && pathname.endsWith('/')
 ---
 
 <header class="header">
-  <div class="view-style">
-    <a href="/" class={currentPath === '/' ? 'current-page' : ''}>Feed</a>
-    <a href="/work-list" class={currentPath === '/work-list' ? 'current-page' : ''}>List</a>
-  </div>
-
-  <div class="nav">
-    <a href="/about" class={currentPath === '/about' ? 'current-page' : ''}>About</a>
-    <a href="/contact" class={currentPath === '/contact' ? 'current-page' : ''}>Contact</a>
-  </div>
+  <a href="/" class={currentPath === '/' ? 'current-page' : ''}>Feed</a>
+  <a href="/work-list" class={currentPath === '/work-list' ? 'current-page' : ''}>List</a>
+  <a href="/about" class={currentPath === '/about' ? 'current-page' : ''}>About</a>
+  <a href="/contact" class={currentPath === '/contact' ? 'current-page' : ''}>Contact</a>
 </header>
 
 <style is:inline>
   header {
       position: fixed;
-      padding: var(--padding) var(--padding) 0;
-      pointer-events: none;
+      padding: var(--padding);
       width: 100%;
       display: flex;
       justify-content: space-between;
       z-index: 100;
       text-transform: uppercase;
       font-size: .75rem;
+      color: #555;
   }
 
-  .view-style,
-  .nav {
-      display: flex;
-      flex-direction: column;
-      gap: .75rem;
-      pointer-events: auto;
-      text-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+  header a {
+    transition: color .3s var(--ease);
+  }
+
+  header a:hover {
+    color: var(--white);
   }
 
   .current-page {
-      text-decoration: underline;
+      color: var(--white);
   }
 
-  .nav {
-      text-align: right;
-  }
-
-  .view-style a:hover,
-  .nav a:hover {
-      text-decoration: underline;
-  }
 </style>
