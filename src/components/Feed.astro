@@ -5,13 +5,14 @@ import Thumbnails from "./Thumbnails.astro";
 ---
 
 <section class="feed">
-  <Gallery client:visible projects={projects} />
   <Thumbnails projects={projects} />
+  <Gallery client:visible projects={projects} />
 </section>
 
 <style>
     .feed {
         position: relative;
-        height: 100dvh;
+        height: calc(100vh - 4rem);
+        padding-top: 4rem;
     }
 </style>
