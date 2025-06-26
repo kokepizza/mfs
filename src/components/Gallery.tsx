@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import type { Project } from "../data/projects";
 
 type Props = {
@@ -7,7 +7,6 @@ type Props = {
 
 export default function ProjectGallery({ projects }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const container = document.querySelector('[data-thumbs]') as HTMLElement;
@@ -33,12 +32,14 @@ export default function ProjectGallery({ projects }: Props) {
 
   return (
     <div className="project-gallery">
+      <div className="image-frame">
+        <img
+          src={project.images[0].src}
+          alt={project.name}
+          className="main-image"
+        />
+      </div>
       <h2>{project.name}</h2>
-      <img
-        src={project.images[0].src}
-        alt={project.name}
-        className="main-image"
-      />
     </div>
   );
 }

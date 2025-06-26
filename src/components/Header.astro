@@ -23,6 +23,7 @@ const currentPath = pathname !== '/' && pathname.endsWith('/')
       text-transform: uppercase;
       font-size: .75rem;
       color: #555;
+      view-transition-name: header;
   }
 
   header a {
@@ -34,7 +35,7 @@ const currentPath = pathname !== '/' && pathname.endsWith('/')
   }
 
   .current-page {
-      color: var(--white);
+    color: var(--white);
   }
 
 </style>
