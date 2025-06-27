@@ -73,6 +73,7 @@ button {
   color-scheme: dark;
   --black: #1D1D1B;
   --white: #F5F5F5;
+  --gray: #555;
   --padding: 1.5rem;
   --ease: cubic-bezier(0.075, 0.82, 0.165, 1)
 }

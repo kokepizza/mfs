@@ -1,22 +1,20 @@
 ---
 import { projects } from "../data/projects";
-import Gallery from "./Gallery";
-import Thumbnails from "./Thumbnails.astro";
+import Thumbs from "./Thumbs.astro";
+import ProjectDisplay from "./ProjectDisplay.astro";
+import ProjectTitle from "./ProjectTitle.astro";
+import "../styles/feed.css";
 ---
 
-<section class="feed">
-  <Thumbnails projects={projects} />
-  <Gallery client:visible projects={projects} />
+<section class="feed" data-feed>
+  <div class="logo-mfs">
+    <h1>Marc Flaquer</h1>
+  </div>
+  <ProjectDisplay projects={projects} />
+  <ProjectTitle projects={projects} />
+  <Thumbs projects={projects} />
 </section>
 
-<style>
-    .feed {
-        position: relative;
-        height: 100dvh;
-        padding-top: 4rem;
-        padding-bottom: 6rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-    }
-</style>
+<script>
+  import "../scripts/feedController.js";
+</script>

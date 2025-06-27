@@ -1,0 +1,19 @@
+---
+const { projects } = Astro.props;
+---
+
+<div class="project-display" data-project-display>
+  {projects.map((project: any, index: number) => (
+    <div 
+      class={`project-image ${index === 0 ? 'active' : ''}`}
+      data-project-index={index}
+    >
+      <img
+        src={project.images[0].src}
+        alt={project.name}
+        class="main-image"
+        loading={index === 0 ? "eager" : "lazy"}
+      />
+    </div>
+  ))}
+</div>

@@ -1,0 +1,21 @@
+---
+const { projects } = Astro.props;
+---
+
+<div class="thumb-wrapper" data-thumbs>
+  <div class="thumb-slider">
+    {projects.map((project: any, index: number) => (
+      <img
+        data-thumb
+        data-thumb-index={index}
+        src={project.images[0].src}
+        alt={project.name}
+        width={80}
+        height={56}
+        class={`thumb ${index === 0 ? 'active' : ''}`}
+        loading="eager"
+      />
+    ))}
+  </div>
+  <div class="thumb-mark"></div>
+</div>

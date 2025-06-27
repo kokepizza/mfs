@@ -1,0 +1,13 @@
+---
+const { projects } = Astro.props;
+---
+
+<div class="project-title-wrapper">
+    <div class="project-title">
+        <span>[</span>
+        <h2 data-project-title>
+            {projects[0].name}
+        </h2>
+        <span>]</span>
+    </div>
+</div>

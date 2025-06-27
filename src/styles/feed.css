@@ -1,0 +1,140 @@
+/* Feed Styles */
+.feed {
+    position: relative;
+    height: 100dvh;
+    padding-top: 4rem;
+    padding-bottom: 6rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Logo MFS */
+.logo-mfs {
+    width: 100%;
+    text-align: center;
+    padding: var(--padding);
+}
+
+.logo-mfs h1 {
+    font-size: 2.5rem;
+    color: var(--gray);
+    letter-spacing: -0.04em;
+}
+
+/* Project Display */
+.project-display {
+    width: 100%;
+    height: 64vh;
+    position: relative;
+}
+
+.project-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0 var(--padding);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-image.active {
+    opacity: 1;
+}
+
+.main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Project Title */
+.project-title-wrapper {
+    text-align: center;
+    width: 100%;
+    padding: var(--padding);
+}
+
+.project-title {
+    font-weight: 300;
+    color: var(--gray);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h2, span {
+        font-size: .8rem;
+    }
+}
+
+/* Thumbs */
+.thumb-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow-x: auto;
+    padding: var(--padding);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.thumb-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.thumb-slider {
+    display: flex;
+    gap: 1rem;
+    min-width: max-content;
+}
+
+.thumb {
+    object-fit: cover;
+    transition: all 0.3s ease;
+    opacity: .5;
+    filter: grayscale(1);
+}
+
+.thumb:first-child {
+    margin-left: calc((100vw - 120px) / 2);
+}
+
+.thumb:last-child {
+    margin-right: calc((100vw - 80px) / 2);
+}
+
+.thumb.active {
+    transform: scale(1.2);
+    opacity: 1;
+    filter: none;
+}
+
+.thumb-mark {
+    position: fixed;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 5rem;
+    background-color: var(--white);
+    pointer-events: none;
+    z-index: 11;
+}
+
+/* Optimizaciones de rendimiento */
+.project-image,
+.main-image {
+    will-change: opacity, transform;
+}
+
+.thumb {
+    will-change: transform;
+}
+
+.project-title {
+    will-change: opacity, transform;
+}
