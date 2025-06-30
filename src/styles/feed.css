@@ -21,6 +21,16 @@
     letter-spacing: -0.04em;
 }
 
+.logo-subtitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-size: .8rem;
+    color: var(--gray);
+    padding-top: .5rem;
+}
+
 /* Project Display */
 .project-display {
     width: 100%;
@@ -97,6 +107,7 @@
     transition: all 0.3s ease;
     opacity: .5;
     filter: grayscale(1);
+    user-select: none;
 }
 
 .thumb:first-child {
