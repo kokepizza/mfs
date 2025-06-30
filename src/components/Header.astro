@@ -15,10 +15,13 @@ const currentPath = pathname !== '/' && pathname.endsWith('/')
 <style is:inline>
   header {
       position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
       padding: var(--padding);
       width: 100%;
       display: flex;
       justify-content: space-between;
+      align-items: center;
       z-index: 100;
       text-transform: uppercase;
       font-size: .75rem;

@@ -2,12 +2,11 @@
 import { projects } from "../data/projects";
 import Thumbs from "./Thumbs.astro";
 import ProjectDisplay from "./ProjectDisplay.astro";
-import ProjectTitle from "./ProjectTitle.astro";
 import "../styles/feed.css";
 ---
 
 <section class="feed" data-feed>
-  <div class="logo-mfs">
+  <div class="logo-mfs mw">
     <h1>Marc Flaquer</h1>
     <div class="logo-subtitle">
       <span>[</span>
@@ -16,7 +15,6 @@ import "../styles/feed.css";
     </div>
   </div>
   <ProjectDisplay projects={projects} />
-  <ProjectTitle projects={projects} />
   <Thumbs projects={projects} />
 </section>
 

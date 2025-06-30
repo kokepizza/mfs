@@ -11,6 +11,8 @@
 /* Logo MFS */
 .logo-mfs {
     position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
     top: 3rem;
     width: 100%;
     text-align: center;
@@ -39,8 +41,8 @@
     position: fixed;
     top: 9.5rem;
     bottom: 9rem;
-    left: 0;
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .project-image {
@@ -68,6 +70,8 @@
 .project-title-wrapper {
     position: fixed;
     bottom: 6rem;
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
     width: 100%;
     padding: var(--padding);
@@ -91,7 +95,8 @@
 .thumb-wrapper {
     position: fixed;
     bottom: 0;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 100%;
     overflow-x: auto;
     padding: var(--padding);
@@ -120,11 +125,11 @@
 }
 
 .thumb:first-child {
-    margin-left: calc((100vw - 80px) / 2);
+    margin-left: calc((100vw - 64px) / 2);
 }
 
 .thumb:last-child {
-    margin-right: calc((100vw - 80px) / 2);
+    margin-right: calc((100vw - 64px) / 2);
 }
 
 .thumb.active {
@@ -146,4 +151,10 @@
 
 .project-title {
     will-change: opacity, transform;
+}
+
+@media (min-width:1024px) {
+    .main-image {
+        object-fit: contain;
+    }
 }
