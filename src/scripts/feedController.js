@@ -1,135 +1,61 @@
-// feedController.js
-import { gsap } from 'gsap';
-
 class FeedController {
   constructor() {
     this.currentIndex = 0;
     this.projects = [];
-    
-    this.init();
-  }
-
-  init() {
-    // Esperar a que el DOM esté completamente cargado
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => this.setup());
-    } else {
-      this.setup();
-    }
+    document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', () => this.setup())
+      : this.setup();
   }
 
   setup() {
     this.thumbWrapper = document.querySelector('[data-thumbs]');
     this.thumbs = document.querySelectorAll('[data-thumb]');
-    this.thumbMark = document.querySelector('.thumb-mark');
     this.projectTitle = document.querySelector('[data-project-title]');
     this.projectImages = document.querySelectorAll('[data-project-index]');
-    
-    // Obtener datos de los proyectos desde los elementos DOM
-    this.projects = Array.from(this.thumbs).map((thumb, index) => ({
-      name: thumb.alt,
-      index: index
-    }));
-
+    this.projects = Array.from(this.thumbs).map((t, i) => ({ name: t.alt, index: i }));
     this.bindEvents();
-    this.updateActiveProject(0); // Sin parámetro de animación
+    this.updateActiveProject(0);
   }
 
   bindEvents() {
-    // Scroll en los thumbs
-    this.thumbWrapper.addEventListener('scroll', 
-      this.throttle(() => this.handleThumbScroll(), 16)
-    );
-
-    // Click en thumbs
-    this.thumbs.forEach((thumb, index) => {
-      thumb.addEventListener('click', () => {
-        this.scrollToThumb(index);
-        this.updateActiveProject(index);
-      });
+    this.thumbWrapper.addEventListener('scroll', this.throttle(() => this.handleThumbScroll(), 16));
+    this.thumbs.forEach((thumb, i) => {
+      thumb.addEventListener('click', () => this.updateActiveProject(i));
     });
   }
 
   handleThumbScroll() {
-    const markRect = this.thumbMark.getBoundingClientRect();
-    const markCenter = markRect.left + markRect.width / 2;
-    
-    let closestIndex = 0;
-    let closestDistance = Infinity;
+    const wrapperRect = this.thumbWrapper.getBoundingClientRect();
+    const wrapperCenter = wrapperRect.left + wrapperRect.width / 2;
 
-    this.thumbs.forEach((thumb, index) => {
-      const thumbRect = thumb.getBoundingClientRect();
-      const thumbCenter = thumbRect.left + thumbRect.width / 2;
-      const distance = Math.abs(thumbCenter - markCenter);
-      
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestIndex = index;
+    let closest = 0, minDist = Infinity;
+    this.thumbs.forEach((thumb, i) => {
+      const center = thumb.getBoundingClientRect().left + thumb.offsetWidth / 2;
+      const dist = Math.abs(center - wrapperCenter);
+      if (dist < minDist) [minDist, closest] = [dist, i];
+    });
+
+    if (closest !== this.currentIndex) this.updateActiveProject(closest);
+  }
+
+  updateActiveProject(i) {
+    if (i === this.currentIndex) return;
+    this.currentIndex = i;
+    this.thumbs.forEach((thumb, idx) => thumb.classList.toggle('active', idx === i));
+    if (this.projectTitle) this.projectTitle.textContent = this.projects[i]?.name;
+    this.projectImages.forEach((img, idx) => img.classList.toggle('active', idx === i));
+  }
+
+  throttle(fn, limit) {
+    let wait = false;
+    return (...args) => {
+      if (!wait) {
+        fn.apply(this, args);
+        wait = true;
+        setTimeout(() => (wait = false), limit);
       }
-    });
-
-    if (closestIndex !== this.currentIndex) {
-      this.updateActiveProject(closestIndex);
-    }
-  }
-
-  updateActiveProject(newIndex, animate = true) {
-    if (newIndex === this.currentIndex) return;
-    
-    this.currentIndex = newIndex;
-
-    // Actualizar clases activas en thumbs
-    this.thumbs.forEach((thumb, index) => {
-      thumb.classList.toggle('active', index === newIndex);
-    });
-
-    // Actualizar título directamente
-    if (this.projectTitle && this.projects[newIndex]) {
-      this.projectTitle.textContent = this.projects[newIndex].name;
-    }
-
-    // Actualizar imagen principal directamente
-    this.setActiveImage(newIndex);
-  }
-
-  setActiveImage(index) {
-    this.projectImages.forEach((img, i) => {
-      img.classList.toggle('active', i === index);
-    });
-  }
-
-  scrollToThumb(index) {
-    const targetThumb = this.thumbs[index];
-    if (!targetThumb) return;
-
-    const thumbRect = targetThumb.getBoundingClientRect();
-    const containerRect = this.thumbWrapper.getBoundingClientRect();
-    const currentScroll = this.thumbWrapper.scrollLeft;
-    
-    const targetScroll = currentScroll + thumbRect.left - containerRect.left - 
-                        (containerRect.width / 2) + (thumbRect.width / 2);
-
-    gsap.to(this.thumbWrapper, {
-      scrollLeft: targetScroll,
-      duration: 0.5,
-      ease: "power2.out"
-    });
-  }
-
-  // Utility function para throttle
-  throttle(func, limit) {
-    let inThrottle;
-    return function() {
-      const args = arguments;
-      const context = this;
-      if (!inThrottle) {
-        func.apply(context, args);
-        inThrottle = true;
-        setTimeout(() => inThrottle = false, limit);
-      }
-    }
+    };
   }
 }
 
-// Inicializar cuando se carga el script
 new FeedController();

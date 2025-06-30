@@ -76,6 +76,7 @@
 
     h2, span {
         font-size: .8rem;
+        font-weight: 300;
     }
 }
 
@@ -122,18 +123,6 @@
     transform: scale(1.2);
     opacity: 1;
     filter: none;
-}
-
-.thumb-mark {
-    position: fixed;
-    left: 50%;
-    bottom: 1rem;
-    transform: translateX(-50%);
-    width: 1px;
-    height: 5rem;
-    background-color: var(--white);
-    pointer-events: none;
-    z-index: 11;
 }
 
 /* Optimizaciones de rendimiento */
