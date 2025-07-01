@@ -119,10 +119,11 @@
         font-size: .8rem;
         font-weight: 300;
     }
+}
 
-    svg {
-        display: none;
-    }
+.project-subtitle,
+.project-title svg {
+    display: none;
 }
 
 @media (min-width:1024px) {
