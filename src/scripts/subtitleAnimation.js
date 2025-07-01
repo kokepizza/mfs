@@ -21,17 +21,37 @@ class SubtitleAndSvgAnimation {
     gsap.set(this.subtitle, { y: 20, opacity: 0 });
 
     this.svgTimeline = gsap.timeline({ paused: true, reversed: true });
-    this.svgTimeline.to(this.svg, { rotation: 360, transformOrigin: "50% 50%", duration: 1, ease: "power2.inOut" }, 0);
-    this.svgTimeline.to(this.firstRect, { opacity: 0, duration: 1, ease: "power2.inOut" }, 0);
+    this.svgTimeline.to(this.svg, {
+      rotation: 360,
+      transformOrigin: "50% 50%",
+      duration: 1,
+      ease: "power2.inOut"
+    }, 0);
+    this.svgTimeline.to(this.firstRect, {
+      opacity: 0,
+      duration: 1,
+      ease: "power2.inOut"
+    }, 0);
 
     this.svg.style.cursor = 'pointer';
 
     this.svg.addEventListener('click', () => {
       if (!this.subtitleVisible) {
-        gsap.to(this.subtitle, { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" });
+        gsap.to(this.subtitle, {
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          delay: 0.2,
+          ease: "power2.out"
+        });
         this.svgTimeline.play();
       } else {
-        gsap.to(this.subtitle, { y: 20, opacity: 0, duration: 0.5, ease: "power2.in" });
+        gsap.to(this.subtitle, {
+          y: 20,
+          opacity: 0,
+          duration: 0.5,
+          ease: "power2.in"
+        });
         this.svgTimeline.reverse();
       }
       this.subtitleVisible = !this.subtitleVisible;

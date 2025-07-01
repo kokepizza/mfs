@@ -148,6 +148,7 @@
     }
 
     .project-subtitle {
+        display: flex;
         color: var(--gray);
         font-size: .8rem;
     }
