@@ -75,7 +75,13 @@ button {
   --white: #F5F5F5;
   --gray: #555;
   --padding: 1rem;
-  --ease: cubic-bezier(0.075, 0.82, 0.165, 1)
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --black: #F5F5F5;
+  --white: #1D1D1B;
+  --gray: #B0B0B0;
 }
 
 html {
@@ -123,8 +129,4 @@ html {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-}
-
-.mw {
-  max-width: 400px;
 }

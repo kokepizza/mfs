@@ -1,21 +1,59 @@
 ---
 import { projects } from "../data/projects";
-import Thumbs from "./Thumbs.astro";
-import ProjectDisplay from "./ProjectDisplay.astro";
 import "../styles/feed.css";
 ---
 
 <section class="feed" data-feed>
-  <div class="logo-mfs mw">
+  <div class="logo-mfs">
     <h1>Marc Flaquer</h1>
-    <div class="logo-subtitle">
-      <span>[</span>
-      <p>Framing the instinct. Capturing the truth.</p>
-      <span>]</span>
+    <p class="logo-subtitle">Framing the instinct. Capturing the truth.</p>
+  </div>
+  
+  <div class="project-display" data-project-display>
+    {projects.map((project: any, index: number) => (
+      <div 
+        class={`project-image ${index === 0 ? 'active' : ''}`}
+        data-project-index={index}
+      >
+        <img
+          src={project.images[0].src}
+          alt={project.name}
+          class="main-image"
+          loading={index === 0 ? "eager" : "lazy"}
+        />
+      </div>
+    ))}
+  </div>
+
+  <div class="project-title-wrapper">
+    <div class="project-title">
+      <h2 data-project-title>
+          {projects[0].name}
+      </h2>
+      <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" width="1" height="7" fill="var(--gray)"/>
+        <rect x="7" y="3" width="1" height="7" transform="rotate(90 7 3)" fill="var(--gray)"/>
+      </svg>
     </div>
   </div>
-  <ProjectDisplay projects={projects} />
-  <Thumbs projects={projects} />
+  
+  <div class="thumb-wrapper" data-thumbs>
+    <div class="thumb-slider">
+      {projects.map((project: any, index: number) => (
+        <img
+          data-thumb
+          data-thumb-index={index}
+          src={project.images[0].src}
+          alt={project.name}
+          width={40}
+          height={24}
+          class={`thumb ${index === 0 ? 'active' : ''}`}
+          loading="eager"
+        />
+      ))}
+    </div>
+  </div>
+
 </section>
 
 <script>

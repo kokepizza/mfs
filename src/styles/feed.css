@@ -17,22 +17,24 @@
     width: 100%;
     text-align: center;
     padding: var(--padding);
+    color: var(--gray);
 }
 
 .logo-mfs h1 {
     font-size: 2.5rem;
-    color: var(--gray);
     letter-spacing: -0.04em;
 }
 
 .logo-subtitle {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    text-align: center;
     font-size: .8rem;
-    color: var(--gray);
     padding-top: .5rem;
+}
+
+@media (min-width:1024px) {
+    .logo-mfs {
+        top: 0;
+    }
 }
 
 /* Project Display */
@@ -66,13 +68,32 @@
     object-fit: cover;
 }
 
+@media (min-width: 1024px) {
+  .project-display {
+    left: 0;
+    top: 6.5rem;
+    bottom: 4rem;
+    transform: none;
+  }
+
+  .project-image {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* alineamos a la izquierda */
+  }
+
+  .main-image {
+    width: auto;
+    object-fit: contain;
+  }
+}
+
 /* Project Title */
 .project-title-wrapper {
     position: fixed;
     bottom: 6rem;
     left: 50%;
     transform: translateX(-50%);
-    text-align: center;
     width: 100%;
     padding: var(--padding);
 }
@@ -81,15 +102,22 @@
     font-weight: 300;
     color: var(--gray);
     text-transform: uppercase;
+    text-align: center;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 
-    h2, span {
+    h2 {
         font-size: .8rem;
         font-weight: 300;
     }
+
+    svg {
+        display: none;
+    }
 }
+
+@media (min-width:1024px) {}
 
 /* Thumbs */
 .thumb-wrapper {
@@ -139,6 +167,8 @@
     z-index: 99;
 }
 
+@media (min-width:1024px) {}
+
 /* Optimizaciones de rendimiento */
 .project-image,
 .main-image {
@@ -153,8 +183,4 @@
     will-change: opacity, transform;
 }
 
-@media (min-width:1024px) {
-    .main-image {
-        object-fit: contain;
-    }
-}
+@media (min-width:1024px) {}
