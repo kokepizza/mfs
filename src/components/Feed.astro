@@ -2,7 +2,6 @@
 import { projects } from "../data/projects";
 import "../styles/feed.css";
 ---
-
 <section class="feed" data-feed>
   <div class="logo-mfs">
     <h1>Marc Flaquer</h1>
@@ -35,6 +34,9 @@ import "../styles/feed.css";
         <rect x="7" y="3" width="1" height="7" transform="rotate(90 7 3)" fill="var(--gray)"/>
       </svg>
     </div>
+    <div class="project-subtitle">
+      <p data-project-subtitle>{projects[0].description}</p>
+    </div>
   </div>
   
   <div class="thumb-wrapper" data-thumbs>
@@ -45,6 +47,7 @@ import "../styles/feed.css";
           data-thumb-index={index}
           src={project.images[0].src}
           alt={project.name}
+          data-description={project.description}
           width={40}
           height={24}
           class={`thumb ${index === 0 ? 'active' : ''}`}
@@ -58,4 +61,5 @@ import "../styles/feed.css";
 
 <script>
   import "../scripts/feedController.js";
+  import "../scripts/subtitleAnimation.js";
 </script>

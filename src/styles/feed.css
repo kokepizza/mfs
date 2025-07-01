@@ -34,6 +34,13 @@
 @media (min-width:1024px) {
     .logo-mfs {
         top: 0;
+        right: 0;
+        left: auto;
+        width: fit-content;
+        transform: none;
+        text-align: right;
+        background-color: var(--black);
+        z-index: 100;
     }
 }
 
@@ -45,6 +52,7 @@
     bottom: 9rem;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 9999;
 }
 
 .project-image {
@@ -71,8 +79,8 @@
 @media (min-width: 1024px) {
   .project-display {
     left: 0;
-    top: 6.5rem;
-    bottom: 4rem;
+    top: 1.5rem;
+    bottom: 4.5rem;
     transform: none;
   }
 
@@ -117,7 +125,32 @@
     }
 }
 
-@media (min-width:1024px) {}
+@media (min-width:1024px) {
+    .project-title-wrapper {
+        bottom: 0;
+        left: 0;
+        transform: none;
+        width: auto;
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+    }
+
+    .project-title {
+        justify-content: flex-start;
+        gap: 1rem;
+
+        svg {
+            display: flex;
+            cursor: pointer;
+        } 
+    }
+
+    .project-subtitle {
+        color: var(--gray);
+        font-size: .8rem;
+    }
+}
 
 /* Thumbs */
 .thumb-wrapper {
@@ -146,7 +179,7 @@
 
 .thumb {
     object-fit: cover;
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
     opacity: .5;
     filter: grayscale(1);
     user-select: none;
@@ -167,7 +200,56 @@
     z-index: 99;
 }
 
-@media (min-width:1024px) {}
+@media (min-width: 1024px) {
+
+    .thumb-wrapper {
+        position: absolute;
+        top: 0;
+        right: var(--padding);
+        bottom: auto;
+        left: auto;
+        width: auto;
+        height: 100%;
+        overflow-x: visible;
+        transform: none;
+        margin-bottom: 0;
+    }
+
+    .thumb-slider {
+        flex-direction: column;
+        gap: 1rem;
+        height: auto;
+    }
+
+    .thumb {
+        width: 80px;
+        height: 48px;
+    }
+
+    .thumb.active {
+        transform: scale(1.5);
+    }
+
+    .thumb:first-child {
+        margin-left: 0;
+        margin-top: calc((100vh - 50px) / 2);
+    }
+
+    .thumb:last-child {
+        margin-right: 0;
+        margin-bottom: calc((100vh - 32px) / 2);
+    }
+
+    html {
+        overflow-y: scroll;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    html::-webkit-scrollbar {
+        display: none;
+    }
+}
 
 /* Optimizaciones de rendimiento */
 .project-image,
