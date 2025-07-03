@@ -36,10 +36,7 @@
 @media (min-width:1024px) {
     .logo-mfs {
         top: 0;
-        right: 0;
-        left: auto;
         width: fit-content;
-        transform: none;
         text-align: right;
         z-index: 100;
     }

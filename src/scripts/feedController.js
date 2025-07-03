@@ -32,37 +32,6 @@ class FeedController {
     });
 
     window.addEventListener('resize', this.throttle(() => this.handleThumbScroll(), 100));
-
-    if (window.innerWidth < 1024) {
-      this.addTouchEvents();
-    }
-  }
-
-  addTouchEvents() {
-    let touchStartX = 0;
-    let touchEndX = 0;
-    const threshold = 50;
-
-    document.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    document.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      this.handleSwipeGesture(touchStartX, touchEndX);
-    }, { passive: true });
-  }
-
-  handleSwipeGesture(startX, endX) {
-    const deltaX = endX - startX;
-
-    if (Math.abs(deltaX) < 50) return;
-
-    if (deltaX < 0 && this.currentIndex < this.projects.length - 1) {
-      this.updateActiveProject(this.currentIndex + 1);
-    } else if (deltaX > 0 && this.currentIndex > 0) {
-      this.updateActiveProject(this.currentIndex - 1);
-    }
   }
 
   handleThumbScroll() {
@@ -91,20 +60,10 @@ class FeedController {
   updateActiveProject(i) {
     if (i === this.currentIndex) return;
     this.currentIndex = i;
-
     this.thumbs.forEach((thumb, idx) => thumb.classList.toggle('active', idx === i));
     if (this.projectTitle) this.projectTitle.textContent = this.projects[i]?.name;
     if (this.projectSubtitle) this.projectSubtitle.textContent = this.projects[i]?.description || '';
     this.projectImages.forEach((img, idx) => img.classList.toggle('active', idx === i));
-
-    const activeThumb = this.thumbs[i];
-    if (activeThumb && this.thumbWrapper) {
-      activeThumb.scrollIntoView({
-        behavior: 'smooth',
-        inline: window.innerWidth < 1024 ? 'center' : 'nearest',
-        block: window.innerWidth >= 1024 ? 'center' : 'nearest'
-      });
-    }
   }
 
   throttle(fn, limit) {
