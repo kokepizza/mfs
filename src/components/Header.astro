@@ -25,7 +25,8 @@ const currentPath = pathname !== '/' && pathname.endsWith('/')
     z-index: 100;
     text-transform: uppercase;
     font-size: .8rem;
-    color: var(--gray);
+    color: var(--white);
+    mix-blend-mode: difference;
     view-transition-name: header;
   }
 
@@ -42,7 +43,7 @@ const currentPath = pathname !== '/' && pathname.endsWith('/')
     width: .8rem;
     height: .8rem;
     border-radius: 50%;
-    border: 1px solid var(--gray);
+    border: 1px solid var(--white);
     transition: all 0.3s ease;
     order: -1;
   }
