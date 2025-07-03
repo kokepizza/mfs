@@ -37,7 +37,6 @@
     .logo-mfs {
         top: 0;
         width: fit-content;
-        text-align: right;
         z-index: 100;
     }
 }
