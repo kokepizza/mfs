@@ -4,5 +4,62 @@ import { projects } from '../data/projects';
 ---
 
 <Layout>
-
+    <section class="projects-list">
+        {projects.map(project => (
+        <a 
+            href={`/${project.slug}`}
+            class="project-link"
+            aria-label={`Ver proyecto ${project.name}`}>
+                <h2>{project.name}</h2>
+                <span>↗</span>
+                <img
+                    src={project.images[0].src}
+                    alt={`Imagen del proyecto ${project.name}`}
+                    class="hover-image"
+                    loading="lazy"
+                />
+        </a>
+        ))}
+    </section>
 </Layout>
+
+<style is:inline>
+    .projects-list {
+        padding: 6rem var(--padding) 0 var(--padding);
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: flex-start;
+        mix-blend-mode: difference;
+    }
+
+    .project-link {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .project-link h2 {
+        text-transform: uppercase;
+        font-weight: 300;
+        font-size: 1rem;
+    }
+
+    .hover-image {
+        position: fixed;
+        inset: 0;
+        width: 100dvw;
+        height: 100dvh;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+        object-fit: cover;
+    }
+
+    .project-link:hover .hover-image {
+        opacity: 1;
+    }
+</style>

@@ -1,13 +1,10 @@
 ---
 import { projects } from "../data/projects";
+import MFS from "../components/MFS.astro"
 import "../styles/feed.css";
 ---
 <section class="feed" data-feed>
-  <div class="logo-mfs">
-    <h1>Marc Flaquer</h1>
-    <p class="logo-subtitle">Framing the instinct. Capturing the truth.</p>
-  </div>
-  
+  <MFS />
   <div class="project-display" data-project-display>
     {projects.map((project: any, index: number) => (
       <a 
