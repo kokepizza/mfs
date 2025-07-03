@@ -10,7 +10,8 @@ import "../styles/feed.css";
   
   <div class="project-display" data-project-display>
     {projects.map((project: any, index: number) => (
-      <div 
+      <a 
+        href={`/${project.slug}`}
         class={`project-image ${index === 0 ? 'active' : ''}`}
         data-project-index={index}
       >
@@ -20,7 +21,7 @@ import "../styles/feed.css";
           class="main-image"
           loading={index === 0 ? "eager" : "lazy"}
         />
-      </div>
+      </a>
     ))}
   </div>
 
@@ -30,8 +31,8 @@ import "../styles/feed.css";
           {projects[0].name}
       </h2>
       <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="3" width="1" height="7" fill="var(--gray)"/>
-        <rect x="7" y="3" width="1" height="7" transform="rotate(90 7 3)" fill="var(--gray)"/>
+        <rect x="3" width="1" height="7" fill="var(--white)"/>
+        <rect x="7" y="3" width="1" height="7" transform="rotate(90 7 3)" fill="var(--white)"/>
       </svg>
     </div>
     <div class="project-subtitle">

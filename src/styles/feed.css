@@ -19,6 +19,7 @@
     padding: var(--padding);
     color: var(--white);
     mix-blend-mode: difference;
+    z-index: 10;
 }
 
 .logo-mfs h1 {
@@ -40,7 +41,6 @@
         width: fit-content;
         transform: none;
         text-align: right;
-        background-color: var(--black);
         z-index: 100;
     }
 }
@@ -50,7 +50,7 @@
     width: 100%;
     position: fixed;
     inset: 0;
-    z-index: -1;
+    z-index: 1;
 }
 
 .project-image {
@@ -61,10 +61,12 @@
     height: 100%;
     opacity: 0;
     transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
 .project-image.active {
     opacity: 1;
+    pointer-events: auto;
 }
 
 .main-image {
@@ -76,8 +78,6 @@
 @media (min-width: 1024px) {
   .project-display {
     left: 0;
-    top: 1.5rem;
-    bottom: 4.5rem;
     transform: none;
   }
 
@@ -102,6 +102,7 @@
     width: 100%;
     padding: var(--padding);
     mix-blend-mode: difference;
+    z-index: 10;
 }
 
 .project-title {
@@ -147,7 +148,7 @@
 
     .project-subtitle {
         display: flex;
-        color: var(--gray);
+        color: var(--white);
         font-size: .8rem;
     }
 }
@@ -165,6 +166,7 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    z-index: 10;
 }
 
 .thumb-wrapper::-webkit-scrollbar {
