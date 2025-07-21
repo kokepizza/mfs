@@ -1,14 +1,16 @@
 ---
 import { projects } from "../data/projects";
-import MFS from "../components/MFS.astro"
+import CamGrid from "./CamGrid.astro";
 import "../styles/feed.css";
 ---
+
+<CamGrid />
 <section class="feed" data-feed>
-  <MFS />
   <div class="project-display" data-project-display>
     {projects.map((project: any, index: number) => (
       <a 
         href={`/${project.slug}`}
+        data-slug={project.slug}
         class={`project-image ${index === 0 ? 'active' : ''}`}
         data-project-index={index}
       >
@@ -16,7 +18,7 @@ import "../styles/feed.css";
           src={project.images[0].src}
           alt={project.name}
           class="main-image"
-          loading={index === 0 ? "eager" : "lazy"}
+          loading="eager"
         />
       </a>
     ))}
@@ -43,6 +45,7 @@ import "../styles/feed.css";
         <img
           data-thumb
           data-thumb-index={index}
+          data-slug={project.slug}
           src={project.images[0].src}
           alt={project.name}
           data-description={project.description}

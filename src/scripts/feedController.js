@@ -16,6 +16,7 @@ class FeedController {
     this.projects = Array.from(this.thumbs).map((t, i) => ({ 
       name: t.alt, 
       description: t.dataset.description,
+      slug: t.dataset.slug,
       index: i 
     }));
     this.bindEvents();
@@ -23,9 +24,8 @@ class FeedController {
   }
 
   bindEvents() {
-    const scrollTarget = window.innerWidth >= 1024 ? window : this.thumbWrapper;
-
-    scrollTarget.addEventListener('scroll', this.throttle(() => this.handleThumbScroll(), 16));
+    // Siempre usamos thumbWrapper como target del scroll
+    this.thumbWrapper.addEventListener('scroll', this.throttle(() => this.handleThumbScroll(), 16));
 
     this.thumbs.forEach((thumb, i) => {
       thumb.addEventListener('click', () => this.updateActiveProject(i));
@@ -35,20 +35,14 @@ class FeedController {
   }
 
   handleThumbScroll() {
-    const isDesktop = window.innerWidth >= 1024;
     const wrapperRect = this.thumbWrapper.getBoundingClientRect();
-
-    const wrapperCenter = isDesktop
-      ? window.innerHeight / 2
-      : wrapperRect.left + wrapperRect.width / 2;
+    const wrapperCenter = wrapperRect.left + wrapperRect.width / 2;
 
     let closest = 0, minDist = Infinity;
 
     this.thumbs.forEach((thumb, i) => {
       const thumbRect = thumb.getBoundingClientRect();
-      const center = isDesktop
-        ? thumbRect.top + thumbRect.height / 2
-        : thumbRect.left + thumbRect.width / 2;
+      const center = thumbRect.left + thumbRect.width / 2;
 
       const dist = Math.abs(center - wrapperCenter);
       if (dist < minDist) [minDist, closest] = [dist, i];

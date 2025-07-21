@@ -38,24 +38,6 @@
     object-fit: cover;
 }
 
-@media (min-width: 1024px) {
-  .project-display {
-    left: 0;
-    transform: none;
-  }
-
-  .project-image {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-
-  .main-image {
-    width: auto;
-    object-fit: contain;
-  }
-}
-
 /* Project Title */
 .project-title-wrapper {
     position: fixed;
@@ -64,7 +46,6 @@
     transform: translateX(-50%);
     width: 100%;
     padding: var(--padding);
-    mix-blend-mode: difference;
     z-index: 10;
 }
 
@@ -76,6 +57,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 15;
 
     h2 {
         font-size: .8rem;
@@ -93,7 +75,6 @@
         bottom: 0;
         left: 0;
         transform: none;
-        width: auto;
         display: flex;
         flex-direction: column;
         gap: .5rem;

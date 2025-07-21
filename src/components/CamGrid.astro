@@ -1,0 +1,95 @@
+---
+---
+
+<style>
+  .camera-grid {
+    position: fixed;
+    top: 3.5rem;
+    left: 0;
+    right: 0;
+    bottom: 4.5rem;
+    z-index: 80;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .corner-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+
+  .corner {
+    width: 60px;
+    height: 60px;
+    border: 1px solid var(--white);
+  }
+
+  .corner.top-left {
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .corner.top-right {
+    border-left: none;
+    border-bottom: none;
+  }
+
+  .corner.bottom-left {
+    border-right: none;
+    border-top: none;
+  }
+
+  .corner.bottom-right {
+    border-left: none;
+    border-top: none;
+  }
+
+  .crosshair {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    transform: translate(-50%, -50%);
+  }
+
+  .crosshair::before,
+  .crosshair::after {
+    content: "";
+    position: absolute;
+    background: var(--white);
+  }
+
+  .crosshair::before {
+    width: 1px;
+    height: 100%;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+  }
+
+  .crosshair::after {
+    height: 1px;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+</style>
+
+<div class="camera-grid">
+  <div class="corner-row">
+    <div class="corner top-left"></div>
+    <div class="corner top-right"></div>
+  </div>
+
+  <div class="crosshair"></div>
+
+  <div class="corner-row">
+    <div class="corner bottom-left"></div>
+    <div class="corner bottom-right"></div>
+  </div>
+</div>

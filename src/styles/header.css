@@ -1,0 +1,42 @@
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    z-index: 100;
+    padding: var(--padding);
+}
+
+.logo-mf,
+.burger-menu {
+    z-index: 100;
+}
+
+.burger-menu {
+    position: relative;
+    padding: .5rem;
+}
+
+.navigation {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    width: 100dvw;
+    height: 100dvh;
+    background-color: var(--black);
+    color: var(--white);
+    font-size: 1.2rem;
+    display: none;
+    flex-direction: column;
+    gap: 5rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.navigation a {
+  opacity: 0;
+  transform: translateX(50px);
+}
