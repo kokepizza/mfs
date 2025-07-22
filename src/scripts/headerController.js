@@ -42,7 +42,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // 1: rotar svg
   burgerTl.to(icon, {
-    rotate: 180
+    rotate: 360
   }, 0);
 
   // 2: X y giro
@@ -64,7 +64,7 @@ window.addEventListener("DOMContentLoaded", () => {
       burgerTl.timeScale(1).play();
     } else {
       navTl.timeScale(3).reverse();
-      burgerTl.timeScale(3).reverse();
+      burgerTl.timeScale(1).reverse();
     }
 
     isOpen = !isOpen;
