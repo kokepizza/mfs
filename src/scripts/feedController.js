@@ -1,3 +1,5 @@
+import gsap from "gsap";
+
 class FeedController {
   constructor() {
     this.currentIndex = 0;
@@ -27,28 +29,24 @@ class FeedController {
     }));
 
     this.bindEvents();
-    this.updateActiveProject(0); // inicializa el primero
+    this.updateActiveProject(0);
   }
 
   bindEvents() {
-    // Scroll de thumbs
     this.thumbWrapper.addEventListener(
       'scroll',
       this.throttle(() => this.handleThumbScroll(), 16)
     );
 
-    // Clics en thumbs
     this.thumbs.forEach((thumb, i) => {
       thumb.addEventListener('click', () => this.updateActiveProject(i));
     });
 
-    // Resize
     window.addEventListener(
       'resize',
       this.throttle(() => this.handleThumbScroll(), 100)
     );
 
-    // Swipe en proyecto principal
     this.bindSwipeEvents();
   }
 
@@ -99,27 +97,24 @@ class FeedController {
 
     if (closest !== this.currentIndex) {
       this.currentIndex = closest;
-      this.setActiveVisuals(closest); // solo cambia visuales, sin centrar
+      this.setActiveVisuals(closest);
     }
   }
 
   updateActiveProject(i) {
     if (i === this.currentIndex) return;
     this.currentIndex = i;
-    this.setActiveVisuals(i);     // activa elementos
-    this.centerActiveThumb(i);    // mueve el slider
+    this.setActiveVisuals(i);
+    this.centerActiveThumb(i);
   }
 
   setActiveVisuals(i) {
     this.thumbs.forEach((thumb, idx) => {
       thumb.classList.toggle('active', idx === i);
     });
+
     this.projectImages.forEach((img, idx) => {
-      if (idx === i) {
-        img.classList.add('active');
-      } else {
-        img.classList.remove('active');
-      }
+      img.classList.toggle('active', idx === i);
     });
 
     if (this.projectTitle) {
@@ -134,12 +129,14 @@ class FeedController {
   centerActiveThumb(i) {
     const thumb = this.thumbs[i];
     const wrapperWidth = this.thumbWrapper.offsetWidth;
-    const scrollLeft =
+    const scrollTarget =
       thumb.offsetLeft - wrapperWidth / 2 + thumb.offsetWidth / 2;
 
-    this.thumbWrapper.scrollTo({
-      left: scrollLeft,
-      behavior: 'smooth',
+    // Desplazamos usando GSAP scrollLeft
+    gsap.to(this.thumbWrapper, {
+      scrollLeft: scrollTarget,
+      duration: 0.5,
+      ease: "power2.out",
     });
   }
 
