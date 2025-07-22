@@ -115,7 +115,11 @@ class FeedController {
       thumb.classList.toggle('active', idx === i);
     });
     this.projectImages.forEach((img, idx) => {
-      img.classList.toggle('active', idx === i);
+      if (idx === i) {
+        img.classList.add('active');
+      } else {
+        img.classList.remove('active');
+      }
     });
 
     if (this.projectTitle) {

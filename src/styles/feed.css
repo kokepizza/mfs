@@ -25,11 +25,14 @@
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
+    z-index: 1;
 }
 
 .project-image.active {
     opacity: 1;
     pointer-events: auto;
+    position: relative;
+    z-index: 2;
 }
 
 .main-image {
